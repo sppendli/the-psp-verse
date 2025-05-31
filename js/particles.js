@@ -1,15 +1,26 @@
 
 const canvas = document.getElementById("particleCanvas");
 const ctx = canvas.getContext("2d");
-
 const masterHeader = document.querySelector(".master-header");
 
 // Set canvas size to match the master-header section
 function resizeCanvas(){
-    //Use getBoundingClientRect to ensure accurate height and width
-    const rect = masterHeader.getBoundingClientRect();
-    canvas.width = masterHeader.offsetWidth;
-    canvas.height = masterHeader.offsetHeight;
+    const dpr = window.devicePixelRatio || 1;
+    const scrollWidth = document.documentElement.scrollWidth;
+    const scrollHeight = Math.max(
+        document.documentElement.scrollHeight,
+        document.body.scrollHeight,
+        document.documentElement.offsetHeight,
+        document.body.offsetHeight
+    ); // Ensure full document height
+
+    canvas.style.width = `${scrollWidth}px`;
+    canvas.style.height = `${scrollHeight}px`;
+
+    canvas.width = scrollWidth * dpr;
+    canvas.height = scrollHeight * dpr;
+
+    ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform
 }
 
 // Resize canvas dynamically
@@ -19,16 +30,6 @@ window.addEventListener("resize", () => {
 });
 
 resizeCanvas();
-
-// canvas.width = window.innerWidth;
-// canvas.height = window.innerHeight;
-
-// // Resize canvas dynamically
-// window.addEventListener("resize", () => {
-//     canvas.width = window.innerWidth;
-//     canvas.height = window.innerHeight;
-//     initParticles(); // Reinitialize particles on resize
-// });
 
 const particles = [];
 const mouse = {
@@ -53,35 +54,29 @@ class Particle {
         // Random gold color from palette
         const goldPalette = [
             "#FFD700", // Gold
+            "#FFEC80", // Light Gold
+            "#FFE066", // Golden Yellow
             "#FFC107", // Amber
-            "#FFB300", // Darker gold
-            "#FFAA00", // Deep orange-gold
-            "#F5BF42", // Lighter gold
-            "#E6A817"  // Muted gold
+            "#F5BF42", // Soft gold
+            "#FFFA00"  // Pale gold
         ];
         this.color = goldPalette[Math.floor(Math.random() * goldPalette.length)];
 
-        this.dx = (Math.random() - 0.5) * 0.5; // Horizontal speed
-        this.dy = (Math.random() - 0.5) * 0.5; // Vertical speed
+        this.dx = (Math.random() - 0.5) * 0.3; // Horizontal speed
+        this.dy = (Math.random() - 0.5) * 0.3; // Vertical speed
 
         // Twinkling Properties
-        this.alpha = Math.random() * 0.5 + 0.5 // Starting opacity between 0.5 and 1
-        this.sizeVariation = Math.random() * 1 + 0.5 // Small size variation
-        this.twinkleSpeed = Math.random() * 0.04 + 0.02 // Speed of twinkling effect
+        this.alpha = Math.random() * 0.3 + 0.3 // Starting opacity between 0.1 and 0.3
+        this.sizeVariation = Math.random() * 0.5 + 0.5 // Small size variation
+        this.twinkleSpeed = Math.random() * 0.1 + 0.01 // Speed of twinkling effect
     }
-
-    // draw() {
-    //     ctx.beginPath();
-    //     ctx.arc(this.x, this.y, this.size * this.sizeVariation, 0, Math.PI * 2);
-    //     ctx.fillStyle = this.color;
-    //     ctx.globalAlpha = this.alpha
-    //     ctx.fill();
-    //     ctx.closePath();
-    // }
 
     // Add Gradient Colors
     draw() {
-        const gradient = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.size * this.sizeVariation);
+        const gradient = ctx.createRadialGradient(
+            this.x, this.y, 0, 
+            this.x, this.y, this.size * this.sizeVariation
+        );
         gradient.addColorStop(0, this.color);
         gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
         ctx.fillStyle = gradient;
@@ -96,28 +91,17 @@ class Particle {
         this.x += this.dx;
         this.y += this.dy;
 
-        // Interaction with mouse: Repelling Effect
-        const dx = this.x - mouse.x;
-        const dy = this.y - mouse.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < mouse.radius) {
-            // Push particles away
-            const angle = Math.atan2(dy, dx);
-            this.x += Math.cos(angle) * 2; 
-            this.y += Math.sin(angle) * 2;
-        }
-
-        // Boundary bounce
-        if (this.x < 0 || this.x > canvas.width) this.dx *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.dy *= -1;
+        const dpr = window.devicePixelRatio || 1;
+        if (this.x < 0 || this.x > canvas.width / dpr) this.dx *= -1;
+        if (this.y < 0 || this.y > canvas.height / dpr) this.dy *= -1;
 
         this.alpha += (Math.random() - 0.5) * this.twinkleSpeed;
-        if (this.alpha > 1) this.alpha = 1;
-        if (this.alpha < 0.1) this.alpha = 0.1;
+        if (this.alpha > 0.8) this.alpha = 0.8;
+        if (this.alpha < 0.4) this.alpha = 0.4;
 
-        this.sizeVariation += (Math.random() - 0.5) * 0.1;
-        if (this.sizeVariation > 2) this.sizeVariation = 2;
-        if (this.sizeVariation < 0.3) this.sizeVariation = 0.3;
+        this.sizeVariation += (Math.random() - 0.5) * 0.07;
+        if (this.sizeVariation > 1.7) this.sizeVariation = 1.7;
+        if (this.sizeVariation < 0.7) this.sizeVariation = 0.7;
 
         this.draw();
     }
@@ -126,34 +110,25 @@ class Particle {
 
 // Initialize particles
 function initParticles() {
-    particles.length = 0; // Clear existing particles
-    const particleCount = 100; // Number of particles
+    particles.length = 0;
+    const dpr = window.devicePixelRatio || 1;
+    const particleCount = 100; // Uniform distribution
 
     for (let i = 0; i < particleCount; i++) {
-        const size = Math.random() * 4 + 1; // Particle size
-        const x = Math.random() * canvas.width;
-        const y = Math.random() * canvas.height;
-        const color = "rgba(255, 255, 255, 0.8)"; // White particles
-        particles.push(new Particle(x, y, size, color));
+        const size = Math.random() * 2 + 2; // 2–4px for visibility
+        const x = Math.random() * (canvas.width / dpr);
+        const y = Math.random() * (canvas.height / dpr);
+        particles.push(new Particle(x, y, size));
     }
 }
 
-// Animate particles
-// function animate() {
-//     ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
-//     particles.forEach((particle) => particle.update());
-//     requestAnimationFrame(animate); // Recursive animation loop
-// }
-
 // Motion Trails
 function animate() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.2)"; // Slightly transparent background
+    ctx.fillStyle = "#0a0a0a"
     ctx.fillRect(0, 0, canvas.width, canvas.height); // Creates a fading effect
     particles.forEach((particle) => particle.update());
     requestAnimationFrame(animate);
 }
-
-
 
 // Start the particle system
 initParticles();
