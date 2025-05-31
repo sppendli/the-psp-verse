@@ -4,7 +4,9 @@ body {
     font-family: 'Roboto Slab', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     overflow-x: hidden;
     /* background-color: #1b2328; */
-    background-color: #161c20;
+    /* background-color: #161c20; */
+    background-color: #0a0a0a;
+    /* background: linear-gradient(to bottom, #0a0a0a, #1a1a2e); */
     color: #cfcfcf;
 }
 
@@ -241,7 +243,25 @@ img::-moz-selection{
     box-sizing: border-box;
     margin-bottom: 0;
     margin: 0 auto;
+    /* background: linear-gradient(to bottom, #0a0a0a, #1a1a2e); */
     /* outline: 1px solid red; */
+}
+
+.master-header::before{
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle at center top,
+        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0) 70%
+    );
+    z-index: 0;
+    pointer-events: none;
 }
 
 header.master-header {
@@ -257,23 +277,35 @@ header.master-header {
 }
 
 #particleCanvas {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: auto;
     z-index: -1; /* Ensure the particles stay behind the content */
-
 }
 
 .text-landing {
     position: relative;
     z-index: 2;
-    padding: 0 px;
+    padding: 20px;
     text-align: center;
-    margin: 20px 39%;
-    justify-content: center;
+    margin: 20px auto;
+    max-width: 90%; /* Match previous responsive design */
+    color: #cfcfcf;
+    /* text-shadow: 0 0 12px rgba(0, 0, 0, 0.9); Enhanced for readability */
+    /* background: rgba(0, 0, 0, 0.1); Subtle background for integration */
+    border-radius: 4px; /* Softer edges */
+    display: flex; /* Enable flex for content centering */
+    flex-direction: column;
+    align-items: center;
     /* outline: 1px solid red; */
+}
+
+@media (min-width: 768px) {
+    .text-landing {
+        max-width: 60%;
+    }
 }
 
 section#description {
@@ -283,7 +315,8 @@ section#description {
 
 .description-container {
     /* background-color: #101518; */
-    background-color: #0b0e10;
+    /* background-color: #0b0e10; */
+    background: none;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -307,7 +340,7 @@ section#description {
     position: relative;
     overflow: hidden;
     margin: 20px;
-    background-color: #161c20;
+    /* background-color: #161c20; */
 }
 
 .portfolio-items {
@@ -321,7 +354,8 @@ section#description {
     display: block;
     margin: 15px;
     cursor: pointer;
-    background-color: grey !important;
+    /* background-color: grey !important; */
+    background: none;
     border-radius: 3%;
     -webkit-transition: all ease 1s;
     -moz-transition: all ease 1s;
@@ -428,7 +462,7 @@ section#description {
 /* CONTACT SECTION */
 
 section#contact {
-    background-color: #0b0e10;
+    /* background-color: #0b0e10; */
     background-image: url("../img/map-image.png");
     background-repeat: no-repeat;
     background-position: center;
