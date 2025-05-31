@@ -11,9 +11,11 @@ function resizeCanvas(){
         document.documentElement.scrollHeight,
         document.body.scrollHeight,
         document.documentElement.offsetHeight,
-        document.body.offsetHeight
+        document.body.offsetHeight,
+        document.documentElement.clientHeight
     ); // Ensure full document height
 
+    const sizeChanged = canvas.width !== scrollWidth * dpr || canvas.height !== scrollHeight * dpr;
     canvas.style.width = `${scrollWidth}px`;
     canvas.style.height = `${scrollHeight}px`;
 
