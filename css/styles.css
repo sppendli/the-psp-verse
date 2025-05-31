@@ -3,6 +3,8 @@
 body {
     font-family: 'Roboto Slab', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     overflow-x: hidden;
+    width: 100%;
+    height: 100%;
     /* background-color: #1b2328; */
     /* background-color: #161c20; */
     background-color: #0a0a0a;
@@ -257,7 +259,7 @@ img::-moz-selection{
     height: 100%;
     background: radial-gradient(
         circle at center top,
-        rgba(255, 255, 255, 0.15) 0%,
+        rgba(255, 255, 255, 0.25) 0%,
         rgba(255, 255, 255, 0) 70%
     );
     z-index: 0;
@@ -280,9 +282,10 @@ header.master-header {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: auto;
+    width: 100vw;
+    height: 100vh;
     z-index: -1; /* Ensure the particles stay behind the content */
+    pointer-events: none;
 }
 
 .text-landing {
