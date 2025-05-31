@@ -1,28 +1,24 @@
-
 const canvas = document.getElementById("particleCanvas");
 const ctx = canvas.getContext("2d");
-const masterHeader = document.querySelector(".master-header");
 
-// Set canvas size to match the master-header section
+// Set canvas size to match the viewport
 function resizeCanvas(){
     const dpr = window.devicePixelRatio || 1;
-    const scrollWidth = document.documentElement.scrollWidth;
-    const scrollHeight = Math.max(
-        document.documentElement.scrollHeight,
-        document.body.scrollHeight,
-        document.documentElement.offsetHeight,
-        document.body.offsetHeight,
-        document.documentElement.clientHeight
-    ); // Ensure full document height
-
-    const sizeChanged = canvas.width !== scrollWidth * dpr || canvas.height !== scrollHeight * dpr;
-    canvas.style.width = `${scrollWidth}px`;
-    canvas.style.height = `${scrollHeight}px`;
-
-    canvas.width = scrollWidth * dpr;
-    canvas.height = scrollHeight * dpr;
-
-    ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset transform
+    
+    // Use viewport dimensions instead of scroll dimensions
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    
+    // Set canvas display size (CSS pixels)
+    canvas.style.width = `${viewportWidth}px`;
+    canvas.style.height = `${viewportHeight}px`;
+    
+    // Set canvas actual size (device pixels)
+    canvas.width = viewportWidth * dpr;
+    canvas.height = viewportHeight * dpr;
+    
+    // Scale the drawing context to account for device pixel ratio
+    ctx.scale(dpr, dpr);
 }
 
 // Resize canvas dynamically
@@ -31,6 +27,7 @@ window.addEventListener("resize", () => {
     initParticles(); // Reinitialize particles on resize
 });
 
+// Initial canvas setup
 resizeCanvas();
 
 const particles = [];
@@ -68,7 +65,7 @@ class Particle {
         this.dy = (Math.random() - 0.5) * 0.3; // Vertical speed
 
         // Twinkling Properties
-        this.alpha = Math.random() * 0.3 + 0.3 // Starting opacity between 0.1 and 0.3
+        this.alpha = Math.random() * 0.3 + 0.3 // Starting opacity between 0.3 and 0.6
         this.sizeVariation = Math.random() * 0.5 + 0.5 // Small size variation
         this.twinkleSpeed = Math.random() * 0.1 + 0.01 // Speed of twinkling effect
     }
@@ -93,10 +90,14 @@ class Particle {
         this.x += this.dx;
         this.y += this.dy;
 
-        const dpr = window.devicePixelRatio || 1;
-        if (this.x < 0 || this.x > canvas.width / dpr) this.dx *= -1;
-        if (this.y < 0 || this.y > canvas.height / dpr) this.dy *= -1;
+        // Use viewport dimensions for boundary checking
+        const viewportWidth = window.innerWidth;
+        const viewportHeight = window.innerHeight;
+        
+        if (this.x < 0 || this.x > viewportWidth) this.dx *= -1;
+        if (this.y < 0 || this.y > viewportHeight) this.dy *= -1;
 
+        // Twinkling effect
         this.alpha += (Math.random() - 0.5) * this.twinkleSpeed;
         if (this.alpha > 0.8) this.alpha = 0.8;
         if (this.alpha < 0.4) this.alpha = 0.4;
@@ -107,27 +108,40 @@ class Particle {
 
         this.draw();
     }
-    
 }
 
 // Initialize particles
 function initParticles() {
     particles.length = 0;
-    const dpr = window.devicePixelRatio || 1;
-    const particleCount = 100; // Uniform distribution
+    
+    // Use viewport dimensions for particle distribution
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+    
+    // Adjust particle count based on screen size
+    let particleCount = 100;
+    if (viewportWidth < 768) {
+        particleCount = 60; // Fewer particles on mobile for better performance
+    } else if (viewportWidth < 1200) {
+        particleCount = 80; // Medium count for tablets
+    }
 
     for (let i = 0; i < particleCount; i++) {
         const size = Math.random() * 2 + 2; // 2–4px for visibility
-        const x = Math.random() * (canvas.width / dpr);
-        const y = Math.random() * (canvas.height / dpr);
+        const x = Math.random() * viewportWidth;
+        const y = Math.random() * viewportHeight;
         particles.push(new Particle(x, y, size));
     }
 }
 
-// Motion Trails
+// Animation loop with proper canvas clearing
 function animate() {
-    ctx.fillStyle = "#0a0a0a"
-    ctx.fillRect(0, 0, canvas.width, canvas.height); // Creates a fading effect
+    // Clear the entire canvas
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = "#0a0a0a";
+    ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+    
+    // Update and draw particles
     particles.forEach((particle) => particle.update());
     requestAnimationFrame(animate);
 }
