@@ -207,6 +207,20 @@
                         <img class="img-fluid" src="img/Stock Price Predictor.gif" alt="">
                     </a>
                 </div>
+                
+                <div class="col-md-3 col-sm-6 portfolio-item show column all">                    
+                    <a class = "portfolio-link" data-bs-toggle="modal" data-bs-target="#project3" href="#project3">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content">
+                                <p>Scout - Market Intelligence</p>
+                                <hr style="width: 100 px;">
+                                <p class="explanation-portfolio">An AI-powered competitive intelligence platform that automates market monitoring, 
+                                    extracts strategic insights from competitor sources, and delivers weekly intelligence briefings.</p>
+                            </div>
+                        </div>
+                        <img class="img-fluid" src="img/Scout.gif" alt="">
+                    </a>
+                </div>
 
             </div>
         </div>
@@ -307,6 +321,47 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <a href="https://psplabs-stock-price-predictor.streamlit.app/" target="_blank" class="btn btn-primary">View</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="portfolio-modal modal fade" id="project3" tabindex="-1" aria-labelledby="project3Label" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="project3Label">🔍 Scout - Market Intelligence Platform</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="gif-container">
+                        <img src="img/Scout.gif" alt="Scout Dashboard Screenshot" class="img-fluid mb-3">
+                    </div>
+                    <p><strong>Overview:</strong> Scout is an AI-powered competitive intelligence platform that automates 
+                        market monitoring for product teams and strategy leaders. It scrapes competitor sources, uses LLM-based 
+                        classification to extract strategic events, and delivers actionable intelligence briefings.</p>
+                    
+                    <p><strong>Description:</strong> Scout transforms hours of manual competitor research into 60-second insights. 
+                        The platform monitors SaaS competitors across Analytics, Design Tools, and Project Management verticals, 
+                        automatically detecting feature launches, pricing changes, and strategic partnerships. Key features include:</p>
+                    
+                    <ul>
+                        <li><strong>Automated Data Collection:</strong> Multi-source scraping from blogs, changelogs, and RSS feeds</li>
+                        <li><strong>AI-Powered Classification:</strong> GPT-4-mini with structured outputs for event extraction</li>
+                        <li><strong>Interactive Dashboard:</strong> Real-time metrics, category breakdowns, and confidence scoring</li>
+                        <li><strong>Intelligence Briefings:</strong> One-click HTML export with visualizations and source links</li>
+                        <li><strong>Competitive Sets:</strong> Pre-configured monitoring for Mixpanel, Figma, Asana, and more</li>
+                    </ul>
+
+                    <p><strong>Impact:</strong> Reduces competitive intelligence gathering from 3+ hours per week to under 
+                        60 seconds, achieving 80%+ classification precision on real-world competitor announcements.</p>
+
+                    <p><strong>Technologies Used:</strong> Python, Streamlit, OpenAI GPT-4-mini, SQLite, Plotly, Newspaper3k, Feedparser</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <!-- <a href="https://github.com/sppendli/scout" target="_blank" class="btn btn-primary">View on GitHub</a> -->
+                    <a href="https://psplabs-scout.streamlit.app/" target="_blank" class="btn btn-primary">View</a>
                 </div>
             </div>
         </div>
