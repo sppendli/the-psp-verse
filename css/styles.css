@@ -406,54 +406,6 @@ section#description {
     border-radius: 10px; /* Optional: rounded edges */
 }
 
-/* SERVICE SECTION */
-#services {
-    padding: 50px 0;
-}
-
-.services-container {
-    background-color: #0b0e10;
-    /* margin: 20px; */
-    /* display: flex; */
-    /* position: relative; */
-    /* align-items: center; */
-    /* justify-content: center; */
-    min-height: 400px;
-}
-
-.service-tile {
-    position: relative;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    color: #cfcfcf;
-    padding: 20px;
-    /* border: 1px solid #ffd700; */
-    /* border-radius: 8px; */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    margin: 15px;
-    width: 600px;
-    height: 300px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-.service-tile:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    opacity: 0.9; /* Slight transparency on hover */
-}
-
-.tile-dashboard {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/image.png');; 
-}
-
-.tile-forecast {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/image.png');; 
-}
 
 /* TESTIMONIALS SECTION */
 /* section#testimonial {
