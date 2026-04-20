@@ -49,7 +49,7 @@
   .section-outcome { background: rgba(26,122,110,0.04); }
 
   .inner {
-    max-width: 960px;
+    max-width: 1120px;
     margin: 0 auto;
     padding: 0 56px;
   }
@@ -119,6 +119,13 @@
     font-size: 1.05rem;
     color: var(--muted);
     line-height: 1.65;
+  }
+  .lede .byline {
+    margin-top: 1.25rem;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    color: var(--warn);
   }
 
   /* ── SECTION LABEL ── */
@@ -227,82 +234,144 @@
     margin-bottom: 28px;
   }
 
-  /* ── PHASE BLOCKS ── */
-  .phase-block {
-    border: 1px solid var(--rule);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 10px;
+  /* ── PHASE FLOW (horizontal two-card layout) ── */
+  .phase-flow {
+    display: flex;
+    align-items: stretch;
+    margin-top: 24px;
+    margin-bottom: 16px;
   }
 
-  .phase-block-header {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 16px;
-    align-items: center;
-    padding: 18px 24px;
-    background: #1a1916;
-  }
-
-  .phase-block-num {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
+  .phase-card {
+    flex: 1;
     border: 1px solid var(--rule);
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--muted);
-    flex-shrink: 0;
+    flex-direction: column;
+    overflow: hidden;
   }
 
-  .phase-block-title {
-    font-size: 0.95rem;
+  .phase-card-header {
+    padding: 20px 22px 16px;
+    border-bottom: 1px solid var(--rule);
+    background: #1a1916;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+  }
+
+  .phase-card:first-child .phase-card-header {
+    background: var(--teal-light);
+  }
+
+  .phase-card-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--teal);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+
+  .phase-card-title {
+    font-size: 0.9rem;
     font-weight: 700;
     color: var(--ink);
-    margin-bottom: 3px;
+    line-height: 1.35;
+    padding-right: 80px;
   }
 
-  .phase-block-sub {
+  .phase-card-tag {
+    position: absolute;
+    top: 20px;
+    right: 22px;
     font-family: 'DM Mono', monospace;
-    font-size: 10.5px;
-    letter-spacing: 0.04em;
-    color: var(--muted);
-  }
-
-  .phase-block-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.1em;
+    font-size: 9px;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--teal);
     border: 1px solid var(--teal);
-    padding: 3px 9px;
+    padding: 2px 8px;
     border-radius: 2px;
     white-space: nowrap;
   }
 
-  .phase-block-tag.neutral {
+  .phase-card-tag.neutral {
     color: var(--muted);
     border-color: var(--rule);
   }
 
-  .phase-block-body {
-    padding: 20px 24px;
-    border-top: 1px solid var(--rule);
+  .phase-card-body {
+    padding: 18px 22px;
+    flex: 1;
   }
 
+  .phase-card-footer {
+    padding: 10px 22px;
+    border-top: 1px solid var(--rule);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+
+  /* ── PHASE CONNECTOR (horizontal dotted arrow) ── */
+  .phase-connector-h {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 68px;
+    flex-shrink: 0;
+    gap: 8px;
+    padding: 0 6px;
+  }
+
+  .phase-connector-h-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 8.5px;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.4;
+    opacity: 0.7;
+  }
+
+  .phase-connector-h-line {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    position: relative;
+  }
+
+  .phase-connector-h-line::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 14px;
+    border-top: 1px dashed rgba(158,152,144,0.45);
+    top: 50%;
+  }
+
+  .phase-connector-h-arrow {
+    color: var(--muted);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    line-height: 1;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── PHASE BULLET ITEMS (shared) ── */
   .phase-block-items {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    margin-bottom: 16px;
+    gap: 9px;
   }
 
   .phase-block-item {
-    font-size: 0.88rem;
+    font-size: 0.875rem;
     color: var(--muted);
     display: flex;
     align-items: flex-start;
@@ -314,22 +383,9 @@
     width: 4px;
     height: 4px;
     border-radius: 50%;
-    background: var(--muted);
+    background: var(--teal);
     flex-shrink: 0;
     margin-top: 7px;
-  }
-
-  .phase-block-deliverable {
-    padding-top: 14px;
-    border-top: 1px solid var(--rule);
-    font-size: 0.83rem;
-    color: var(--muted);
-    line-height: 1.65;
-  }
-
-  .phase-block-deliverable strong {
-    color: var(--ink);
-    font-weight: 700;
   }
 
   /* ── NOT FOR ── */
@@ -412,95 +468,61 @@
   }
 
 
-  /* ── TERMS FLOW ── */
-  .terms-flow {
-    display: flex;
-    flex-direction: column;
-    margin-top: 36px;
+  /* ── HOW IT WORKS FLOW ── */
+  .how-it-works {
+    margin-top: 24px;
   }
 
-  .terms-step {
-    display: grid;
-    grid-template-columns: 44px 1fr;
-    gap: 24px;
+  .how-it-works-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
   }
 
-  .terms-step-marker {
+  .flow {
     display: flex;
-    flex-direction: column;
     align-items: center;
+    gap: 0;
   }
 
-  .terms-step-num {
-    width: 32px;
-    height: 32px;
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+  }
+
+  .flow-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--teal);
+    background: rgba(26,122,110,0.12);
+    width: 22px;
+    height: 22px;
     border-radius: 50%;
-    border: 1px solid var(--teal);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    color: var(--teal);
     flex-shrink: 0;
   }
 
-  .terms-step-line {
-    width: 1px;
-    flex: 1;
-    background: var(--rule);
-    margin: 8px 0;
-    min-height: 24px;
-  }
-
-  .terms-step:last-child .terms-step-line {
-    display: none;
-  }
-
-  .terms-step-body {
-    padding-bottom: 36px;
-    padding-top: 4px;
-  }
-
-  .terms-step:last-child .terms-step-body {
-    padding-bottom: 0;
-  }
-
-  .terms-step-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 8px;
-  }
-
-  .terms-step-title {
-    font-size: 1rem;
-    font-weight: 700;
+  .flow-step-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    letter-spacing: 0.03em;
     color: var(--ink);
   }
 
-  .terms-step-badge {
+  .flow-sep {
     font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--teal);
-    border: 1px solid var(--teal);
-    padding: 2px 8px;
-    border-radius: 2px;
-    white-space: nowrap;
-  }
-
-  .terms-step-badge.neutral {
+    font-size: 13px;
     color: var(--muted);
-    border-color: var(--rule);
-  }
-
-  .terms-step-note {
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.65;
+    padding: 0 12px;
+    flex-shrink: 0;
+    opacity: 0.4;
   }
 
   /* ── ARTICLE LIST ── */
@@ -613,9 +635,12 @@
     .page { padding: 40px 0; }
     .inner { padding: 0 28px; }
     .lede h1 { font-size: 1.85rem; }
-    .icp-grid, .phase, .engagement { grid-template-columns: 1fr; }
-    .phase-meta { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .icp-grid { grid-template-columns: 1fr; }
     .icp-col:first-child { border-right: none; border-bottom: 1px solid var(--rule); }
+    .phase-flow { flex-direction: column; }
+    .phase-connector-h { flex-direction: row; width: auto; height: 44px; gap: 12px; padding: 0; }
+    .phase-connector-h-label { white-space: nowrap; }
+    .phase-connector-h-line { flex: 1; }
     .cta { flex-direction: column; gap: 24px; align-items: flex-start; }
   }
 
@@ -713,11 +738,12 @@
   <section class="section-lede">
     <div class="inner">
     <div class="lede">
-      <div class="lede-rule"></div>
+      <!-- <div class="lede-rule"></div> -->
     <h1>Your dashboards aren't failing you.<br><em>Your reporting system is.</em></h1>
       <p class="sub">
-        PSP Labs designs and implements structured reporting systems for operations-driven businesses — so executives can trust their numbers and make decisions with confidence. Fixed scope. Two phases. No surprises.
+        PSP Labs fixes the reporting foundation underneath your dashboards — so executives stop reconciling numbers and start using them. Fixed scope. Two phases. No surprises.
       </p>
+      <p class="byline">Built by a BI Architect with 7 years in business operations and analytics.</p>
     </div>
     </div>
   </section>
@@ -745,23 +771,23 @@
     <div class="section-label">Who This Is For</div>
     <div class="icp-grid">
       <div class="icp-col">
-        <h3>Best-fit clients</h3>
+        <h3>Who I work with</h3>
         <ul>
           <li>Operations-driven businesses (retail, supply chain, manufacturing, logistics)</li>
-          <li>20–250 employees</li>
           <li>COO or Ops Lead owns reporting</li>
           <li>No dedicated internal analytics team</li>
           <li>Already using some tools — ERP, Excel, POS, or Power BI</li>
+          <li>Based in Vancouver or BC, or operating remotely across North America</li>
         </ul>
       </div>
       <div class="icp-col">
         <h3>Presenting symptoms</h3>
         <ul>
-          <li>Conflicting numbers across reports</li>
-          <li>Manual reconciliation before every meeting</li>
-          <li>Low trust in dashboards</li>
-          <li>Business logic scattered across spreadsheets</li>
-          <li>Slow or hesitant decision-making</li>
+          <li>Conflicting numbers depending on who pulled the report</li>
+          <li>Hours spent reconciling data before every leadership meeting</li>
+          <li>Metrics defined differently by finance, ops, and the CEO</li>
+          <li>Business logic living in someone's spreadsheet, not in the system</li>
+          <li>Decisions stalled because no one fully trusts the numbers</li>
         </ul>
       </div>
     </div>
@@ -773,117 +799,73 @@
     <div class="inner">
       <div class="section-label">The Engagement</div>
       <h2 class="engagement-heading">A reporting system, built right. Once.</h2>
-      <p class="engagement-sub">Every engagement runs the same two-phase process. The assessment comes first — I won't design a system on a foundation I haven't validated.</p>
+      <p class="engagement-sub">The assessment comes first — I won't design a system on a foundation I haven't validated.</p>
 
-      <div class="phase-block">
-        <div class="phase-block-header">
-          <div class="phase-block-num">01</div>
-          <div>
-            <div class="phase-block-title">Reporting Readiness Assessment</div>
-            <div class="phase-block-sub">Mandatory entry point · 1 week · Fixed scope</div>
-          </div>
-          <div class="phase-block-tag">Always first</div>
-        </div>
-        <div class="phase-block-body">
-          <div class="phase-block-items">
-            <div class="phase-block-item"><span class="phase-block-dot"></span>Data source audit — POS, ERP, spreadsheets, exports</div>
-            <div class="phase-block-item"><span class="phase-block-dot"></span>Data quality sampling and gap identification</div>
-            <div class="phase-block-item"><span class="phase-block-dot"></span>KPI feasibility check against available data</div>
-            <div class="phase-block-item"><span class="phase-block-dot"></span>Current reporting workflow mapping</div>
-            <div class="phase-block-item"><span class="phase-block-dot"></span>Risk and complexity classification</div>
-          </div>
-          <div class="phase-block-deliverable"><strong>You receive:</strong> A full data & reporting audit, identified gaps, complexity determination, and a clear recommendation — including whether a build engagement makes sense.</div>
-        </div>
-      </div>
+      <div class="phase-flow">
 
-      <div class="phase-block">
-        <div class="phase-block-header">
-          <div class="phase-block-num">02</div>
-          <div>
-            <div class="phase-block-title">Reporting System Implementation</div>
-            <div class="phase-block-sub">4–6 weeks · Scope finalized after assessment</div>
+        <!-- Phase 01 -->
+        <div class="phase-card">
+          <div class="phase-card-header">
+            <div class="phase-card-num">STEP 1</div>
+            <div class="phase-card-title">Assessment</div>
+            <div class="phase-card-tag">Always first</div>
           </div>
-          <div class="phase-block-tag neutral">Post-assessment only</div>
-        </div>
-        <div class="phase-block-body">
-          <div class="phase-block-items">
-            <div class="phase-block-item"><span class="phase-block-dot"></span>Structured semantic data model (star or snowflake schema)</div>
-            <div class="phase-block-item"><span class="phase-block-dot"></span>Centralized business logic and KPI definitions</div>
-            <div class="phase-block-item"><span class="phase-block-dot"></span>Executive-ready reporting layer (Power BI)</div>
-            <div class="phase-block-item"><span class="phase-block-dot"></span>Documentation and user training</div>
-            <div class="phase-block-item"><span class="phase-block-dot"></span>30-day support window post-handoff</div>
+          <div class="phase-card-body">
+            <div class="phase-block-items">
+              <div class="phase-block-item"><span class="phase-block-dot"></span>Full data &amp; reporting audit</div>
+              <div class="phase-block-item"><span class="phase-block-dot"></span>Complexity and risk classification</div>
+              <div class="phase-block-item"><span class="phase-block-dot"></span>Clear recommendation: proceed, clean first, or stop</div>
+            </div>
           </div>
-          <div class="phase-block-deliverable"><strong>You receive:</strong> A clean semantic model, defined KPI framework, executive dashboard, full documentation, and a handoff your team can maintain. Scope is fixed. Timeline is fixed. No surprises.</div>
+          <div class="phase-card-footer">1 week · Fixed scope</div>
         </div>
+
+        <!-- Dotted arrow connector -->
+        <div class="phase-connector-h">
+          <div class="phase-connector-h-label">Assessment<br>complete</div>
+          <div class="phase-connector-h-line">
+            <span class="phase-connector-h-arrow">→</span>
+          </div>
+        </div>
+
+        <!-- Phase 02 -->
+        <div class="phase-card">
+          <div class="phase-card-header">
+            <div class="phase-card-num">STEP 2</div>
+            <div class="phase-card-title">Implementation</div>
+            <div class="phase-card-tag neutral">Post-assessment only</div>
+          </div>
+          <div class="phase-card-body">
+            <div class="phase-block-items">
+              <div class="phase-block-item"><span class="phase-block-dot"></span>Structured semantic data model (Power BI)</div>
+              <div class="phase-block-item"><span class="phase-block-dot"></span>Centralized KPI framework and business logic</div>
+              <div class="phase-block-item"><span class="phase-block-dot"></span>Executive reporting layer, documentation + 30-day support</div>
+            </div>
+          </div>
+          <div class="phase-card-footer">4–6 weeks · Scope finalized after assessment</div>
+        </div>
+
       </div>
 
       <div class="not-for">
         <div class="not-for-label">Not the right fit?</div>
-        <div class="not-for-text">This engagement is not for teams looking for a quick dashboard fix without addressing the underlying data. If you need the assessment waived, want the lowest price over a durable system, or don't have a clear internal owner post-handoff — this isn't it.</div>
+        <div class="not-for-text">This isn't the right engagement if you want a dashboard without addressing the data underneath it — or if you need the assessment skipped. The process is the product.</div>
       </div>
 
-      <div style="margin-top: 40px;">
-        <div class="section-label">Terms</div>
-        <div class="terms-flow">
-
-          <div class="terms-step">
-            <div class="terms-step-marker">
-              <div class="terms-step-num">01</div>
-              <div class="terms-step-line"></div>
-            </div>
-            <div class="terms-step-body">
-              <div class="terms-step-header">
-                <div class="terms-step-title">Phase 1 — Assessment</div>
-                <div class="terms-step-badge">Fixed scope</div>
-              </div>
-              <div class="terms-step-note">Scoped and priced upfront. A standalone deliverable — you receive a full audit and recommendation before any build begins.</div>
-            </div>
-          </div>
-
-          <div class="terms-step">
-            <div class="terms-step-marker">
-              <div class="terms-step-num">02</div>
-              <div class="terms-step-line"></div>
-            </div>
-            <div class="terms-step-body">
-              <div class="terms-step-header">
-                <div class="terms-step-title">Phase 2 — Implementation</div>
-                <div class="terms-step-badge neutral">Post-assessment only</div>
-              </div>
-              <div class="terms-step-note">Scope, timeline, and investment are defined from the assessment output. Nothing is estimated blind.</div>
-            </div>
-          </div>
-
-          <div class="terms-step">
-            <div class="terms-step-marker">
-              <div class="terms-step-num">03</div>
-              <div class="terms-step-line"></div>
-            </div>
-            <div class="terms-step-body">
-              <div class="terms-step-header">
-                <div class="terms-step-title">Scope changes</div>
-                <div class="terms-step-badge neutral">Change order required</div>
-              </div>
-              <div class="terms-step-note">Any change to agreed scope adjusts timeline and investment. No exceptions — this protects the quality of the build.</div>
-            </div>
-          </div>
-
-          <div class="terms-step">
-            <div class="terms-step-marker">
-              <div class="terms-step-num">04</div>
-              <div class="terms-step-line"></div>
-            </div>
-            <div class="terms-step-body">
-              <div class="terms-step-header">
-                <div class="terms-step-title">After the build</div>
-                <div class="terms-step-badge neutral">Optional</div>
-              </div>
-              <div class="terms-step-note">A retainer is available for ongoing enhancements, new metrics, and optimization — but only on stable foundations.</div>
-            </div>
-          </div>
-
+      <!-- <div class="how-it-works">
+        <div class="how-it-works-label">How it works</div>
+        <div class="flow">
+          <div class="flow-step"><span class="flow-num">1</span><span class="flow-step-label">Assessment</span></div>
+          <span class="flow-sep">→</span>
+          <div class="flow-step"><span class="flow-num">2</span><span class="flow-step-label">Data model design</span></div>
+          <span class="flow-sep">→</span>
+          <div class="flow-step"><span class="flow-num">3</span><span class="flow-step-label">KPI framework</span></div>
+          <span class="flow-sep">→</span>
+          <div class="flow-step"><span class="flow-num">4</span><span class="flow-step-label">Dashboard build</span></div>
+          <span class="flow-sep">→</span>
+          <div class="flow-step"><span class="flow-num">5</span><span class="flow-step-label">Handoff</span></div>
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
 
@@ -900,24 +882,20 @@
       </thead>
       <tbody>
         <tr>
-          <td>Multiple conflicting reports</td>
-          <td>Single source of truth</td>
+          <td>Multiple reports, different numbers</td>
+          <td>One set of numbers everyone agrees on</td>
         </tr>
         <tr>
-          <td>Manual reconciliation before every meeting</td>
+          <td>Hours spent reconciling data before every leadership meeting</td>
           <td>COO reviews the business weekly without manual work</td>
         </tr>
         <tr>
-          <td>Business logic scattered across spreadsheets</td>
-          <td>Defined, consistent metrics — centralized and trusted</td>
+          <td>Business logic scattered across spreadsheets and people's heads</td>
+          <td>Metrics defined once, applied consistently across every report</td>
         </tr>
         <tr>
-          <td>Low trust in dashboards</td>
-          <td>Executive confidence in the numbers</td>
-        </tr>
-        <tr>
-          <td>Reactive, hesitant decisions</td>
-          <td>Timely decisions made on reliable data</td>
+          <td>Decisions delayed by uncertainty in the data</td>
+          <td>Leadership acts on the numbers instead of questioning them</td>
         </tr>
       </tbody>
     </table>
@@ -929,7 +907,7 @@
   <section class="section-thinking">
     <div class="inner">
       <div class="section-label">Thinking</div>
-      <h2>Still thinking? Read how I reason.</h2>
+      <h2>Read how I think through this.</h2>
       <p class="sub">The best way to evaluate someone is to see how they think through a problem.</p>
       <div class="article-list">
         <a class="article-item" href="#">
@@ -956,11 +934,11 @@
     <div class="cta">
       <div class="cta-left">
         <h2>Start with the assessment.</h2>
-        <p>If the system isn't there yet, we'll tell you exactly what it needs.</p>
+        <p>One week. A clear picture of your reporting system and exactly what it needs.</p>
       </div>
       <div class="cta-right">
-        <span class="cta-email">hello@psplabs.ca</span>
-        pspverse.com
+        <span class="cta-email">hello@psplabs.com</span>
+        PSP Labs
       </div>
     </div>
     </div>
