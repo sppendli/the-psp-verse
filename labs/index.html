@@ -38,7 +38,6 @@
   /* ── SECTION BACKGROUNDS & SPACING ── */
   .section-lede,
   .section-problem,
-  .section-icp,
   .section-engagement,
   .section-outcome,
   .section-thinking,
@@ -46,8 +45,8 @@
     padding: 56px 0;
   }
 
-  .section-icp     { background: #141311; }
-  .section-outcome { background: rgba(26,122,110,0.04); }
+  .section-engagement { background: #141311; }
+  .section-outcome    { background: rgba(26,122,110,0.04); }
 
   .inner {
     max-width: 1120px;
@@ -167,6 +166,7 @@
     margin-top: 24px;
     padding: 20px 24px;
     border-left: 3px solid var(--teal);
+    border-radius: 0 6px 6px 0;
     background: var(--teal-light);
     font-size: 0.985rem;
   }
@@ -181,43 +181,25 @@
     margin-bottom: 6px;
   }
 
-  /* ── ICP ── */
-  .icp-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
+  /* ── ICP BOX ── */
+  .icp-box {
+    margin-top: 28px;
+    padding: 20px 24px;
     border: 1px solid var(--rule);
-    margin-bottom: 52px;
+    border-radius: 6px;
+    background: rgba(255,255,255,0.02);
   }
 
-  .icp-col {
-    padding: 28px 28px 28px;
-  }
-
-  .icp-col:first-child {
-    border-right: 1px solid var(--rule);
-  }
-
-  .icp-col h3 {
-    font-family: 'DM Mono', monospace;
-    font-size: 10.5px;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 16px;
-  }
-
-  .icp-col ul {
+.icp-list {
     list-style: none;
     font-size: 0.92rem;
+    color: var(--muted);
     line-height: 1.85;
   }
 
-  .icp-col ul li::before {
-    content: "→  ";
+  .icp-list li::before {
+    content: "– ";
     color: var(--teal);
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
   }
 
   /* ── ENGAGEMENT HEADING ── */
@@ -246,6 +228,8 @@
   .phase-card {
     flex: 1;
     border: 1px solid var(--rule);
+    border-radius: 6px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -395,9 +379,10 @@
     padding: 16px 20px;
     background: #1a1916;
     border-left: 2px solid var(--rule);
-    border-radius: 0 4px 4px 0;
+    border-radius: 0 6px 6px 0;
   }
 
+  .icp-label,
   .not-for-label {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
@@ -636,9 +621,7 @@
     .page { padding: 40px 0; }
     .inner { padding: 0 28px; }
     .lede h1 { font-size: 1.85rem; }
-    .icp-grid { grid-template-columns: 1fr; }
-    .icp-col:first-child { border-right: none; border-bottom: 1px solid var(--rule); }
-    .phase-flow { flex-direction: column; }
+.phase-flow { flex-direction: column; }
     .phase-connector-h { flex-direction: row; width: auto; height: 44px; gap: 12px; padding: 0; }
     .phase-connector-h-label { white-space: nowrap; }
     .phase-connector-h-line { flex: 1; }
@@ -731,7 +714,7 @@
   <a class="top-nav-link" href="#engagement">Engagement</a>
   <a class="top-nav-link" href="#outcome">Outcome</a>
   <a class="top-nav-link" href="#contact">Contact</a>
-  <a class="top-nav-back" href="https://www.pspverse.com">← Portfolio</a>
+  <a class="top-nav-back" href="https://www.pspverse.com">My Portfolio</a>
 </nav>
 <div class="page">
 
@@ -742,9 +725,11 @@
       <!-- <div class="lede-rule"></div> -->
     <h1>Your dashboards aren't failing you.<br><em>Your reporting system is.</em></h1>
       <p class="sub">
-        PSP Labs fixes the reporting foundation underneath your dashboards — so executives stop reconciling numbers and start using them. Fixed scope. Two phases. No surprises.
+        PSP Labs fixes the reporting foundation underneath your dashboards. Your leadership team shouldn't have to debate which number is right before every decision.
+        <br><br>
+        Fixed scope. Two phases. No surprises.
       </p>
-      <p class="byline">Built by a BI Architect with 7 years in business operations and analytics.</p>
+      <p class="byline">Built by someone who has had to explain why the same KPI shows different numbers in the same meeting.</p>
     </div>
     </div>
   </section>
@@ -756,39 +741,20 @@
       <div class="section-label">The Problem</div>
       <h2>You have data. You don't trust it.</h2>
       <p>
-        The same KPI shows different values in different reports. Every leadership meeting starts with someone reconciling numbers before anything else gets discussed. Decisions slow down — or worse, they get made on the wrong data.
+        The same KPI shows different values in different reports. Every leadership meeting starts with someone reconciling numbers before anything else gets discussed. 
+        Sometimes the ERP says one thing, the Power BI dashboard says another, and someone pulls out an Excel sheet to settle it. Decisions slow down. Or worse, they get made on the wrong data.
       </p>
       <div class="root-cause">
         <strong>Root cause</strong>
-        The issue isn't your dashboards. It's the absence of a reporting architecture underneath them. Without a structured data model and defined business logic, every report is an island — and every number is a question.
+        The issue isn't your dashboards. It's the absence of a reporting foundation underneath them. Without a structured data model and defined business logic, every report is an island and every number is a question.
       </div>
-    </div>
-    </div>
-  </section>
-
-  <!-- WHO THIS IS FOR -->
-  <section class="section-icp">
-    <div class="inner">
-    <div class="section-label">Who This Is For</div>
-    <div class="icp-grid">
-      <div class="icp-col">
-        <h3>Who I work with</h3>
-        <ul>
-          <li>Operations-driven businesses (retail, supply chain, manufacturing, logistics)</li>
-          <li>COO or Ops Lead owns reporting</li>
+      <div class="icp-box">
+        <div class="icp-label">Who this is for</div>
+        <ul class="icp-list">
+          <li>Operations-driven businesses — retail, supply chain, manufacturing, logistics</li>
+          <li>Running on ERP + Excel + Power BI where reporting has started to break under growth</li>
+          <li>COO or Ops Lead owns reporting but doesn't fully trust it</li>
           <li>No dedicated internal analytics team</li>
-          <li>Already using some tools — ERP, Excel, POS, or Power BI</li>
-          <li>Based in Vancouver or BC, or operating remotely across North America</li>
-        </ul>
-      </div>
-      <div class="icp-col">
-        <h3>Presenting symptoms</h3>
-        <ul>
-          <li>Conflicting numbers depending on who pulled the report</li>
-          <li>Hours spent reconciling data before every leadership meeting</li>
-          <li>Metrics defined differently by finance, ops, and the CEO</li>
-          <li>Business logic living in someone's spreadsheet, not in the system</li>
-          <li>Decisions stalled because no one fully trusts the numbers</li>
         </ul>
       </div>
     </div>
@@ -800,7 +766,7 @@
     <div class="inner">
       <div class="section-label">The Engagement</div>
       <h2 class="engagement-heading">A reporting system, built right. Once.</h2>
-      <p class="engagement-sub">The assessment comes first — I won't design a system on a foundation I haven't validated.</p>
+      <p class="engagement-sub">The assessment comes first. I won't design a system on a foundation I haven't validated.</p>
 
       <div class="phase-flow">
 
@@ -838,9 +804,10 @@
           </div>
           <div class="phase-card-body">
             <div class="phase-block-items">
-              <div class="phase-block-item"><span class="phase-block-dot"></span>Structured semantic data model (Power BI)</div>
-              <div class="phase-block-item"><span class="phase-block-dot"></span>Centralized KPI framework and business logic</div>
-              <div class="phase-block-item"><span class="phase-block-dot"></span>Executive reporting layer, documentation + 30-day support</div>
+              <div class="phase-block-item"><span class="phase-block-dot"></span>One data model that every report pulls from. No duplicates, no drift.</div>
+              <div class="phase-block-item"><span class="phase-block-dot"></span>Metrics defined once and used across every report.</div>
+              <div class="phase-block-item"><span class="phase-block-dot"></span>A reporting layer leadership can actually use. Clear definitions behind every number.</div>
+              <div class="phase-block-item"><span class="phase-block-dot"></span>30-day post-engagement support</div>
             </div>
           </div>
           <div class="phase-card-footer">4–6 weeks · Scope finalized after assessment</div>
@@ -850,7 +817,7 @@
 
       <div class="not-for">
         <div class="not-for-label">Not the right fit?</div>
-        <div class="not-for-text">This isn't the right engagement if you want a dashboard without addressing the data underneath it — or if you need the assessment skipped. The process is the product.</div>
+        <div class="not-for-text">This isn't the right engagement if you want a dashboard without addressing the data underneath it. The process is the product. Skipping it is exactly how you end up here again.</div>
       </div>
 
       <!-- <div class="how-it-works">
@@ -884,7 +851,7 @@
       <tbody>
         <tr>
           <td>Multiple reports, different numbers</td>
-          <td>One set of numbers everyone agrees on</td>
+          <td>One set of numbers and clear ownership when something changes</td>
         </tr>
         <tr>
           <td>Hours spent reconciling data before every leadership meeting</td>
@@ -896,7 +863,7 @@
         </tr>
         <tr>
           <td>Decisions delayed by uncertainty in the data</td>
-          <td>Leadership acts on the numbers instead of questioning them</td>
+          <td>Decisions made faster with fewer debates about the numbers</td>
         </tr>
       </tbody>
     </table>
@@ -909,19 +876,26 @@
     <div class="inner">
       <div class="section-label">Thinking</div>
       <h2>Read how I think through this.</h2>
-      <p class="sub">The best way to evaluate someone is to see how they think through a problem.</p>
+      <!-- <p class="sub">The best way to evaluate someone is to see how they think through a problem.</p> -->
       <div class="article-list">
         <a class="article-item" href="#">
           <div>
-            <div class="article-title">Your dashboard isn't the problem. Your reporting system is.</div>
-            <div class="article-meta">BI Architecture · 6 min read</div>
+            <div class="article-title">Why your Power BI numbers don't match your ERP</div>
+            <div class="article-meta">Point of View</div>
           </div>
           <span class="article-arrow">→</span>
         </a>
         <a class="article-item" href="#">
           <div>
-            <div class="article-title">How I approach BI architecture</div>
-            <div class="article-meta">Process · 8 min read</div>
+            <div class="article-title">What I actually look at before I trust a reporting system</div>
+            <div class="article-meta">Process</div>
+          </div>
+          <span class="article-arrow">→</span>
+        </a>
+        <a class="article-item" href="#">
+          <div>
+            <div class="article-title">How a North Vancouver retailer stopped reconciling numbers before every leadership meeting</div>
+            <div class="article-meta">Case Study</div>
           </div>
           <span class="article-arrow">→</span>
         </a>
@@ -935,11 +909,10 @@
     <div class="cta">
       <div class="cta-left">
         <h2>Start with the assessment.</h2>
-        <p>One week. A clear picture of your reporting system and exactly what it needs.</p>
+        <p>One week. You'll know exactly what's broken, what's not, and whether this is even worth fixing.</p>
       </div>
       <div class="cta-right">
         <span class="cta-email">hello@psplabs.com</span>
-        PSP Labs
       </div>
     </div>
     </div>
