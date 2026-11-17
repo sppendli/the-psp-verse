@@ -344,12 +344,6 @@ section#description {
     /* background-color: #161c20; */
 }
 
-.portfolio-items {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-
 .portfolio-item {
     position: relative;
     display: block;
@@ -393,8 +387,27 @@ section#description {
     padding: 15px;
 }
 
-.portfolio-item:hover .portfolio-hover{
+.portfolio-item:hover .portfolio-hover,
+.portfolio-link:focus-visible .portfolio-hover {
     opacity: 0.8;
+}
+
+.portfolio-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: inherit;
+    cursor: pointer;
+}
+
+.portfolio-link:focus-visible {
+    outline: 2px solid #ffd700;
+    outline-offset: -4px;
 }
 
 .gif-container img {

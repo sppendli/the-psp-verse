@@ -76,7 +76,7 @@
                         <a class="nav-link" href="#portfolio">Portfolio</a>
                     </li>
                     <!-- <li class="nav-item">
-                        <a class="nav-link" href="https://labs.pspverse.com/" target="_blank">Services</a>
+                        <a class="nav-link" href="https://labs.pspverse.com/" target="_blank" rel="noopener noreferrer">Services<span class="visually-hidden"> (opens in a new tab)</span></a>
                     </li> -->
                     <!-- <li class="nav-item">
                         <a class="nav-link" href="#blog">Blog</a>
@@ -180,8 +180,8 @@
             <br><br>
             <div id="portfolio-items" class="row justify-content-center">
                 
-                <div class="col-md-3 col-sm-6 portfolio-item show column all">
-                    <a class="portfolio-link" data-bs-toggle="modal" data-bs-target="#project1" href="#project1">
+                <div class="col-md-3 col-sm-6 portfolio-item">
+                    <button type="button" class="portfolio-link" data-bs-toggle="modal" data-bs-target="#project1" aria-haspopup="dialog" aria-label="Stock Analysis Dashboard">
                         <div class="portfolio-hover">
                             <div class="portfolio-hover-content">
                                 <p>Stock Analysis Dashboard</p>
@@ -191,11 +191,11 @@
                             </div>
                         </div>
                         <img class="img-fluid" src="img/Stock Analysis.gif" alt="">
-                    </a>
+                    </button>
                 </div>
 
-                <div class="col-md-3 col-sm-6 portfolio-item show column all">
-                    <a class="portfolio-link" data-bs-toggle="modal" data-bs-target="#project2" href="#project2">
+                <div class="col-md-3 col-sm-6 portfolio-item">
+                    <button type="button" class="portfolio-link" data-bs-toggle="modal" data-bs-target="#project2" aria-haspopup="dialog" aria-label="Stock Price Predictor">
                         <div class="portfolio-hover">
                             <div class="portfolio-hover-content">
                                 <p>Stock Price Predictor</p>
@@ -205,21 +205,21 @@
                             </div>
                         </div>
                         <img class="img-fluid" src="img/Stock Price Predictor.gif" alt="">
-                    </a>
+                    </button>
                 </div>
                 
-                <div class="col-md-3 col-sm-6 portfolio-item show column all">                    
-                    <a class = "portfolio-link" data-bs-toggle="modal" data-bs-target="#project3" href="#project3">
+                <div class="col-md-3 col-sm-6 portfolio-item">                    
+                    <button type="button" class="portfolio-link" data-bs-toggle="modal" data-bs-target="#project3" aria-haspopup="dialog" aria-label="Scout - Market Intelligence">
                         <div class="portfolio-hover">
                             <div class="portfolio-hover-content">
                                 <p>Scout - Market Intelligence</p>
-                                <hr style="width: 100 px;">
+                                <hr style="width: 100px;">
                                 <p class="explanation-portfolio">An AI-powered competitive intelligence platform that automates market monitoring, 
                                     extracts strategic insights from competitor sources, and delivers weekly intelligence briefings.</p>
                             </div>
                         </div>
                         <img class="img-fluid" src="img/Scout.gif" alt="">
-                    </a>
+                    </button>
                 </div>
 
             </div>
@@ -270,11 +270,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="project1Label">Stock Analysis Dashboard</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="gif-container">
-                        <img src="img/Stock Analysis.gif" alt="Project Screenshot" class="img-fluid mb-3">
+                        <img src="img/Stock Analysis.gif" alt="Screen recording of the Stock Analysis Dashboard" class="img-fluid mb-3">
                     </div>
                     <p><strong>Overview:</strong> A powerful interactive dashboard for analyzing stock market trends, sector performance, and 
                         forecasting future stock movements using historical data and time series analysis.</p>
@@ -289,8 +289,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a href="stock_analysis_dashboard.html" 
-                    target="_blank" class="btn btn-primary">View</a>
+                    <a href="stock_analysis_dashboard.html" target="_blank" rel="noopener noreferrer" class="btn btn-primary">View<span class="visually-hidden"> Stock Analysis Dashboard (opens in a new tab)</span></a>
                 </div>
             </div>
         </div>
@@ -301,11 +300,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="project2Label">Stock Price Predictor</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="gif-container">
-                        <img src="img/Stock Price Predictor.gif" alt="Project Screenshot" class="img-fluid mb-3">
+                        <img src="img/Stock Price Predictor.gif" alt="Screen recording of the Stock Price Predictor" class="img-fluid mb-3">
                     </div>
                     <p><strong>Overview:</strong>  A modular machine learning framework designed to predict stock prices 
                     and evaluate trading strategies using realistic backtesting and live simulation environments.</p>
@@ -320,7 +319,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <a href="https://psplabs-stock-price-predictor.streamlit.app/" target="_blank" class="btn btn-primary">View</a>
+                    <a href="https://psplabs-stock-price-predictor.streamlit.app/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">View<span class="visually-hidden"> Stock Price Predictor (opens in a new tab)</span></a>
                 </div>
             </div>
         </div>
@@ -331,11 +330,11 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="project3Label">🔍 Scout - Market Intelligence Platform</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="gif-container">
-                        <img src="img/Scout.gif" alt="Scout Dashboard Screenshot" class="img-fluid mb-3">
+                        <img src="img/Scout.gif" alt="Screen recording of the Scout dashboard" class="img-fluid mb-3">
                     </div>
                     <p><strong>Overview:</strong> Scout is an AI-powered competitive intelligence platform that automates 
                         market monitoring for product teams and strategy leaders. It scrapes competitor sources, uses LLM-based 
@@ -361,7 +360,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <!-- <a href="https://github.com/sppendli/scout" target="_blank" class="btn btn-primary">View on GitHub</a> -->
-                    <a href="https://psplabs-scout.streamlit.app/" target="_blank" class="btn btn-primary">View</a>
+                    <a href="https://psplabs-scout.streamlit.app/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">View<span class="visually-hidden"> Scout (opens in a new tab)</span></a>
                 </div>
             </div>
         </div>
