@@ -19,7 +19,6 @@ python3 -m http.server 8000
 | `css/styles.css` | Custom styles |
 | `js/particles.js` | Interactive particle background |
 | `stock_analysis_dashboard.html` | Embedded Power BI dashboard |
-| `particles.html` | Particle animation sandbox (not linked) |
 | `img/`, `doc/` | Images/GIFs and résumé PDF |
 
 ## Related

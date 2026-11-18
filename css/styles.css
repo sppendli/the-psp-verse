@@ -22,17 +22,13 @@ a:hover {
     color: #ffd700;
 }
 
-.text-primary {
-    color: #46abb0 !important;
-}
-
 h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-  font-weight: 10;
+  font-weight: 400;
   font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -61,39 +57,12 @@ section h3.section-subheading {
     }
 }
 
-u {
-    padding-bottom:3px;
-    text-decoration:none;
-    border-bottom:1px solid #000;
-}
-
-/* Remove elements for small screen */
-@media (max-width: 1200px) {
-    .hide-if-small-screen {
-        display: none;
-    }
-}
-
-/* DISABLED LINKS */
-.isDisabled {
-    color: currentColor;
-    cursor: not-allowed;
-    opacity: 0.5;
-    text-decoration: none;
-}
-
 /* BUTTON */
 .btn {
     font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     font-weight: 500;
 }
   
-.btn-xl {
-    font-size: 18px;
-    padding: 20px 40px;
-    margin: 3px;
-}
-
 .btn-primary {
     background-color: transparent;
     border-color: #46abb0;
@@ -115,7 +84,6 @@ u {
     background-color: transparent;
     border-color: #46abb0;
     color: #46abb0;
-    border-width: small;
 }
 
 .btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover {
@@ -126,12 +94,6 @@ u {
 
 .btn-secondary:active, .btn-secondary:focus {
     background-color: #46abb0 !important;
-}
-
-.btn-secondary:not(:disabled):not(.disabled).active {
-    background-color: #46abb0 !important;
-    border-color: #46abb0 !important;
-    color: white;
 }
 
 ::-moz-selection {
@@ -360,7 +322,7 @@ section#description {
 
 .description-content {
     text-align: left;
-    margin: 20%
+    margin: 20%;
 }
 
 /* PORTFOLIO SECTION */
