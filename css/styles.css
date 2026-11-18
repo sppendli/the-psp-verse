@@ -104,7 +104,7 @@ u {
 .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
     background-color: #46abb0 !important;
     border-color: #46abb0 !important;
-    color: white;
+    color: #0a0a0a;
 }
 
 .btn-primary:active, .btn-primary:focus {
@@ -121,7 +121,7 @@ u {
 .btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover {
     background-color: #46abb0 !important;
     border-color: #46abb0 !important;
-    color: white;
+    color: #0a0a0a;
 }
 
 .btn-secondary:active, .btn-secondary:focus {
@@ -194,11 +194,17 @@ img::-moz-selection{
     font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
-#mainNav .navbar-nav, .nav-item .nav-link.active, 
-#mainNav .navbar-nav .nav-item .nav-link:hover {
+#mainNav .navbar-nav .nav-item .nav-link.active,
+#mainNav .navbar-nav .nav-item .nav-link:hover,
+#mainNav .navbar-nav .nav-item .nav-link:focus-visible {
     color: #ffd700;
     background-color: black;
     /* border-bottom: 1px solid #ffd700; */
+}
+
+#mainNav .navbar-nav .nav-item .nav-link:focus-visible {
+    outline: 2px solid #ffd700;
+    outline-offset: 2px;
 }
 
 @media (max-width: 992px) {
@@ -483,10 +489,14 @@ ul.social-buttons li a {
     transition: all 0.3s;
     color: #161c20;
     border-radius: 100%;
-    outline: none;
     background-color: #cfcfcf;
 }
 
 ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons li a:hover {
     background-color: #ffd700;
+}
+
+ul.social-buttons li a:focus-visible {
+    outline: 2px solid #ffd700;
+    outline-offset: 3px;
 } 
