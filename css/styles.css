@@ -286,6 +286,28 @@ header.master-header {
     pointer-events: none;
 }
 
+.hero-name {
+    font-family: inherit;
+    font-weight: inherit;
+    font-size: 35px;
+    line-height: 1.75;
+    color: inherit;
+    margin: 0 0 1rem;
+    padding-left: 30px;
+}
+
+.skip-link:focus {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1100;
+    padding: 8px 16px;
+    background-color: #ffd700;
+    color: #0a0a0a;
+    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    text-decoration: none;
+}
+
 .text-landing {
     position: relative;
     z-index: 2;

@@ -52,23 +52,23 @@
 </head>
 
 <body id="page-top">
+    <a class="visually-hidden-focusable skip-link" href="#main">Skip to content</a>
     <canvas id="particleCanvas"></canvas>
 
     <!-- NAVIGATION SECTION-->
-    <nav class="navbar navbar-expand-lg fixed-top", id="mainNav">
+    <nav class="navbar navbar-expand-lg fixed-top" id="mainNav">
         <div class="container">
             <!-- <a class="js-scroll-trigger" href="#page-top">
                 HOME
             </a> -->
             <div class="navbar-header">
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" 
-                    data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" 
-                    aria-label="Toggle navigation">
-                    Menu<i class="fa fa-bars"></i>
+                    data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false">
+                    Menu<i class="fa fa-bars" aria-hidden="true"></i>
                 </button>
             </div>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav text-uppercase ml-auto">
+                <ul class="navbar-nav text-uppercase">
                     <li class="nav-item">
                         <a class="nav-link" href="#page-top">Home</a>
                     </li>
@@ -100,11 +100,12 @@
     <!--  -->
 
     <!-- LANDING SECTION -->
+    <main id="main">
     <header class="master-header">
         <!-- <canvas id="particleCanvas"></canvas> -->
         <div class="text-landing">
             <br><br>
-            <p style="display: inline; font-size: 35px; padding-left: 30px;">SAI PRATIK PENDLI</p>
+            <h1 class="hero-name">SAI PRATIK PENDLI</h1>
             <!-- <p style="display: inline; font-size: 35px;">PRATIK</p>
             <p style="display: inline; font-size: 35px;">PENDLI</p> -->
 
@@ -112,18 +113,18 @@
             <br>
             <ul class="list-inline social-buttons">
                 <li class="list-inline-item">
-                    <a href="https://www.linkedin.com/in/sai-pendli/">
-                        <i class="fa fa-linkedin"></i>
+                    <a href="https://www.linkedin.com/in/sai-pendli/" aria-label="LinkedIn profile">
+                        <i class="fa fa-linkedin" aria-hidden="true"></i>
                     </a>
                 </li>
                 <li class="list-inline-item social-buttons">
-                    <a href="mailto:pendlisai@gmail.com">
-                      <i class="fa fa-envelope"></i>
+                    <a href="mailto:pendlisai@gmail.com" aria-label="Email">
+                      <i class="fa fa-envelope" aria-hidden="true"></i>
                     </a>
                 </li>
                 <li class="list-inline-item social-buttons">
-                    <a href="https://github.com/sppendli">
-                      <i class="fa fa-github"></i>
+                    <a href="https://github.com/sppendli" aria-label="GitHub profile">
+                      <i class="fa fa-github" aria-hidden="true"></i>
                     </a>
                 </li>
             </ul>
@@ -138,13 +139,13 @@
     <!--  -->
 
     <!-- DESCRIPTION SECTION -->
-    <section id="description" class="">
+    <section id="description">
         <div class="description-container">
             <div class="row description-content">
                 <div class="col-lg-4 text-center">
-                    <img class="img-fluid" src="img/PSP.jpg" alt="PSP profile picture" style="width: 250px; height: auto; margin-top: 30px; margin-bottom: 30px;">
+                    <img class="img-fluid" src="img/PSP.jpg" alt="Photo of Sai Pratik Pendli" width="600" height="600" style="width: 250px; height: auto; margin-top: 30px; margin-bottom: 30px;">
                 </div>
-                <div class="col-lg-8 text-md-left">
+                <div class="col-lg-8">
                         <p>Hi, I am Sai! I love solving business problems using data.</p>
                         <p>Data Analytics | Machine Learning | Data Engineering</p>
                         <!-- <p>I specialize in empowering businesses and professionals to harness the full potential of their data through advanced analysis and visualization.
@@ -161,7 +162,7 @@
     <!-- -->
 
     <!-- PORTFOLIO SECTION -->
-    <section id="portfolio" class="">
+    <section id="portfolio">
         <div class="portfolio-container">
             <div class="row">
                 <div class="col-lg-12 text-center">
@@ -229,7 +230,7 @@
 
 
     <!-- CONTACT SECTION -->
-    <section id="contact" class="">
+    <section id="contact">
         <div class="container">
             <div class="row">
                 <div class="col-lg-2 text-center"></div>
@@ -241,18 +242,18 @@
                         Otherwise, send me an email at <a href="mailto:pendlisai@gmail.com"> pendlisai@gmail.com</a>.</p> -->
                     <ul class="list-inline social-buttons">
                         <li class="list-inline-item">
-                            <a href="https://www.linkedin.com/in/sai-pendli/">
-                                <i class="fa fa-linkedin"></i>
+                            <a href="https://www.linkedin.com/in/sai-pendli/" aria-label="LinkedIn profile">
+                                <i class="fa fa-linkedin" aria-hidden="true"></i>
                             </a>
                         </li>
                         <li class="list-inline-item social-buttons">
-                            <a href="mailto:pendlisai@gmail.com">
-                                <i class="fa fa-envelope"></i>
+                            <a href="mailto:pendlisai@gmail.com" aria-label="Email">
+                                <i class="fa fa-envelope" aria-hidden="true"></i>
                             </a>
                         </li>
                         <li class="list-inline-item social-buttons">
-                            <a href="https://github.com/sppendli">
-                                <i class="fa fa-github"></i>
+                            <a href="https://github.com/sppendli" aria-label="GitHub profile">
+                                <i class="fa fa-github" aria-hidden="true"></i>
                             </a>
                         </li>
                     </ul>
@@ -260,6 +261,8 @@
             </div>
         </div>
     </section>
+    </main>
+    <footer class="site-footer"></footer>
     <!--  -->
 
     <!-- MODAL SECTION -->
