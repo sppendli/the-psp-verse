@@ -17,9 +17,10 @@ python3 -m http.server 8000
 | --- | --- |
 | `index.html` | Single-page site (landing, intro, portfolio, contact) and project modals |
 | `css/styles.css` | Custom styles |
-| `js/particles.js` | Interactive particle background |
+| `js/particles.js` | Particle background |
+| `js/media.js` | Plays the project videos on cards and in modals |
 | `stock_analysis_dashboard.html` | Embedded Power BI dashboard |
-| `img/`, `doc/` | Images/GIFs and résumé PDF |
+| `img/`, `doc/` | Images, project videos and posters, and résumé PDF |
 
 ## Related
 
