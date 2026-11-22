@@ -4,25 +4,27 @@
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    // Motion state comes from js/motion.js (paused under reduced motion, or when the visitor pressed pause)
+    const running = () => !window.pspMotion || window.pspMotion.isRunning();
+    let modalOpen = false;
+    // The page background comes from the design tokens in css/styles.css
+    const background = getComputedStyle(document.documentElement).getPropertyValue("--color-bg").trim() || "#0a0a0a";
     let frameId = null;
     let resizeTimer = null;
     let seededWidth = 0;
     let seededHeight = 0;
+    let boundsWidth = 0;
+    let boundsHeight = 0;
 
     // Set canvas size to match the viewport
     function resizeCanvas(){
-        const dpr = window.devicePixelRatio || 1;
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);   // above 2 only costs fill rate
 
         // Use viewport dimensions instead of scroll dimensions
         const viewportWidth = window.innerWidth;
         const viewportHeight = window.innerHeight;
 
-        // Set canvas display size (CSS pixels)
-        canvas.style.width = `${viewportWidth}px`;
-        canvas.style.height = `${viewportHeight}px`;
-
-        // Set canvas actual size (device pixels)
+        // The display size comes from the CSS (fixed, 100% of the viewport); set the drawing size in device pixels
         canvas.width = viewportWidth * dpr;
         canvas.height = viewportHeight * dpr;
 
@@ -30,7 +32,7 @@
         ctx.scale(dpr, dpr);
     }
 
-    // Random gold color from palette
+    // The particle sprites use their own gold palette (variations around --color-highlight), kept here on purpose
     const goldPalette = [
         "#FFD700", // Gold
         "#FFEC80", // Light Gold
@@ -89,12 +91,9 @@
             this.x += this.dx;
             this.y += this.dy;
 
-            // Use viewport dimensions for boundary checking
-            const viewportWidth = window.innerWidth;
-            const viewportHeight = window.innerHeight;
-
-            if (this.x < 0 || this.x > viewportWidth) this.dx *= -1;
-            if (this.y < 0 || this.y > viewportHeight) this.dy *= -1;
+            // Bounce at the edges of the area the particles were seeded in
+            if (this.x < 0 || this.x > boundsWidth) this.dx *= -1;
+            if (this.y < 0 || this.y > boundsHeight) this.dy *= -1;
 
             // Twinkling effect
             this.alpha += (Math.random() - 0.5) * this.twinkleSpeed;
@@ -116,6 +115,8 @@
         const viewportHeight = window.innerHeight;
         seededWidth = viewportWidth;
         seededHeight = viewportHeight;
+        boundsWidth = viewportWidth;
+        boundsHeight = viewportHeight;
 
         // Adjust particle count based on screen size
         let particleCount = 100;
@@ -136,11 +137,11 @@
     // Clear the entire canvas
     function clearCanvas() {
         ctx.globalAlpha = 1;
-        ctx.fillStyle = "#0a0a0a";
+        ctx.fillStyle = background;
         ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
     }
 
-    // One still frame, used when the visitor prefers reduced motion
+    // One still frame, used while motion is paused
     function drawStill() {
         clearCanvas();
         particles.forEach((particle) => particle.draw());
@@ -169,12 +170,12 @@
         }
     }
 
-    // Run only when motion is allowed and the tab is visible
+    // Animate only while motion is running, the tab is visible and no modal is open; otherwise hold one still frame
     function syncAnimation() {
-        if (reducedMotion.matches) {
+        if (!running()) {
             stopAnimation();
             drawStill();
-        } else if (document.hidden) {
+        } else if (document.hidden || modalOpen) {
             stopAnimation();
         } else {
             startAnimation();
@@ -186,17 +187,21 @@
         clearTimeout(resizeTimer);
         resizeTimer = setTimeout(() => {
             resizeCanvas();
+            boundsWidth = window.innerWidth;
+            boundsHeight = window.innerHeight;
             // Re-seed only on a real size change; mobile URL-bar show/hide fires
             // small height-only resizes that should not scramble the particles
             if (window.innerWidth !== seededWidth || Math.abs(window.innerHeight - seededHeight) > 150) {
                 initParticles();
             }
-            if (reducedMotion.matches) drawStill();
+            if (!running()) drawStill();
         }, 150);
     });
 
-    reducedMotion.addEventListener("change", syncAnimation);
+    document.addEventListener("motionchange", syncAnimation);
     document.addEventListener("visibilitychange", syncAnimation);
+    document.addEventListener("show.bs.modal", () => { modalOpen = true; syncAnimation(); });
+    document.addEventListener("hidden.bs.modal", () => { modalOpen = false; syncAnimation(); });
 
     // Start the particle system
     resizeCanvas();

@@ -1,25 +1,107 @@
+/* DESIGN TOKENS
+   The 1.x values, named by role so later Phase 3 packages change a value in one place. Spacing and type sizes
+   stay literal until their packages introduce a scale. */
+:root {
+    /* Colour */
+    --color-bg: #0a0a0a;
+    --color-surface: #161c20;      /* modal surface */
+    --color-text: #cfcfcf;
+    --color-text-strong: #ececec;  /* the hero name */
+    --color-muted: #b0b6ba;        /* secondary text; 4.5:1 or better even under the top glow */
+    --color-line: rgba(207, 207, 207, 0.38);  /* outline of the icon buttons */
+    --color-highlight: #ffd700;    /* gold: the one accent (role line, heading rules, buttons, hover, focus) and the particles */
+    --color-accent: var(--color-highlight);   /* kept as a role name: structure uses the same gold */
+    --color-on-accent: #0a0a0a;    /* text on a gold fill */
+    --color-black: #000;
+    --color-white: #fff;
+    --focus-glow: rgba(254, 209, 55, 0.5);
+    --hero-glow: rgba(255, 255, 255, 0.25);
+    --hero-glow-edge: rgba(255, 255, 255, 0);
+
+    /* Type: two families (Montserrat for headings and UI, Roboto Slab for body) and one size scale */
+    --font-body: 'Roboto Slab', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-heading: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --fs-xs: 0.75rem;
+    --fs-sm: 0.875rem;
+    --fs-base: 1rem;
+    --fs-lg: 1.25rem;
+    --fs-xl: 2.25rem;
+    --fs-2xl: clamp(2rem, 1.1rem + 4.2vw, 3.75rem);   /* the hero name */
+    --lh-body: 1.75;
+    --lh-heading: 1.15;
+    --tracking-caps: 0.1em;
+    --tracking-wide: 0.22em;
+
+    /* Spacing: one scale, and one content width shared by every section */
+    --space-2: 8px;
+    --space-3: 16px;
+    --space-4: 24px;
+    --space-5: 32px;
+    --space-6: 48px;
+    --space-7: 64px;
+    --space-8: 96px;
+    --container-max: 1120px;
+    --nav-h: 60px;                /* the fixed nav bar; anchors and focus clear it (scroll-padding-top) */
+    --gutter: var(--space-3);
+    --section-y: var(--space-7);
+
+    /* Shape, layers, motion */
+    --radius-sm: 4px;
+    --radius-lg: 10px;
+    --radius-round: 100%;
+    --z-canvas: -1;
+    --z-content: 2;
+    --z-nav: 1000;
+    --z-skip: 1100;
+    --duration-base: 0.3s;
+
+    /* Bootstrap 5.3 colours modal text from --bs-body-color (alpha1 left it unset, so modals inherited the
+       site's light text); without this the modals show dark text on the dark modal background */
+    --bs-body-color: var(--color-text);
+}
+
 /* GENERAL */
 
+html {
+    color-scheme: dark;                   /* dark scrollbars and form controls */
+    scroll-padding-top: var(--nav-h);     /* anchor jumps and focused elements stay clear of the fixed nav */
+}
+
+/* Icons: one inline SVG sprite (Bootstrap Icons, MIT) replaces Font Awesome */
+.icon-sprite {
+    position: absolute;
+    width: 0;
+    height: 0;
+    overflow: hidden;
+}
+
+.icon {
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    vertical-align: -0.125em;
+}
+
 body {
-    font-family: 'Roboto Slab', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: var(--font-body);
     overflow-x: hidden;
     width: 100%;
     height: 100%;
     min-height: 100vh;
-    background-color: #0a0a0a;
-    color: #cfcfcf;
+    background-color: var(--color-bg);
+    color: var(--color-text);
 }
 
 p {
-    line-height: 1.75;
+    line-height: var(--lh-body);
 }
 
 a {
-    color: #cfcfcf;
+    color: var(--color-text);
 }
 
 a:hover {
-    color: #ffd700;
+    color: var(--color-highlight);
 }
 
 h1,
@@ -29,80 +111,100 @@ h4,
 h5,
 h6 {
   font-weight: 400;
-  font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: var(--font-heading);
 }
 
+/* One section pattern: section > .container-site. Padding comes from the spacing scale. */
 section {
-    padding: 100px 0;
+    padding: var(--section-y) 0;
+}
+
+.container-site {
+    width: 100%;
+    max-width: calc(var(--container-max) + 2 * var(--gutter));
+    margin-inline: auto;
+    padding-inline: var(--gutter);
 }
 
 section h2.section-heading {
-    font-size: 40px;
+    font-size: var(--fs-xl);
+    letter-spacing: var(--tracking-caps);
     margin-top: 0;
-    margin-bottom: 15px;
+    margin-bottom: var(--space-3);
+}
+
+/* A short gold rule under each section heading */
+section h2.section-heading::after {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 2px;
+    margin: var(--space-3) auto 0;
+    background-color: var(--color-accent);
 }
 
 section h3.section-subheading {
-    font-size: 16px;
+    font-size: var(--fs-base);
     font-weight: 400;
-    font-style: italic;
-    margin-bottom: 45px;
+    font-style: normal;
+    margin-bottom: var(--space-6);
     text-transform: none;
-    font-family: 'Droid Serif', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: var(--font-body);
+    color: var(--color-muted);
 }
 
 @media (min-width: 768px) {
-    section{
-        padding: 150px 0;
+    :root {
+        --gutter: var(--space-4);
+        --section-y: var(--space-8);
     }
 }
 
-/* BUTTON */
+/* BUTTON
+   The state rules use .btn.btn-* (specificity 0,3,0) so they tie with Bootstrap's strongest state selectors and
+   win by order, which replaces the old !important without changing any state. */
 .btn {
-    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    font-weight: 500;
+    font-family: var(--font-heading);
+    font-weight: 400;   /* 500 is not loaded; the browser already rendered 400 */
 }
-  
+
 .btn-primary {
     background-color: transparent;
-    border-color: #46abb0;
-    color: #46abb0;
+    border-color: var(--color-accent);
+    color: var(--color-accent);
     border-width: medium;
 }
 
-.btn-primary:active, .btn-primary:focus, .btn-primary:hover {
-    background-color: #46abb0 !important;
-    border-color: #46abb0 !important;
-    color: #0a0a0a;
+.btn.btn-primary:active, .btn.btn-primary:focus, .btn.btn-primary:hover {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-on-accent);
 }
 
-.btn-primary:active, .btn-primary:focus {
-    box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
+.btn.btn-primary:active, .btn.btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem var(--focus-glow);
 }
 
 .btn-secondary {
     background-color: transparent;
-    border-color: #46abb0;
-    color: #46abb0;
+    border-color: var(--color-accent);
+    color: var(--color-accent);
 }
 
-.btn-secondary:active, .btn-secondary:focus, .btn-secondary:hover {
-    background-color: #46abb0 !important;
-    border-color: #46abb0 !important;
-    color: #0a0a0a;
+.btn.btn-secondary:active, .btn.btn-secondary:focus, .btn.btn-secondary:hover {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-on-accent);
 }
 
-.btn-secondary:active, .btn-secondary:focus {
-    background-color: #46abb0 !important;
-}
-
-::-moz-selection {
-    background: #46abb0;
-    text-shadow: none;
+/* A visible keyboard focus ring on every button and button-link, in the modals too */
+.btn:focus-visible {
+    outline: 2px solid var(--color-highlight);
+    outline-offset: 2px;
 }
 
 ::selection {
-    background: #46abb0;
+    background: var(--color-accent);
     text-shadow: none;
 }
 
@@ -110,18 +212,13 @@ img::selection {
     background: transparent;
 }
 
-img::-moz-selection{
-    background: transparent;
-}
-
 #mainNav {
-    background-color: black;
-    transition: background-color 0.3s ease-in-out;
-    z-index: 1000;
+    background-color: var(--color-black);
+    z-index: var(--z-nav);
 }
 
 #mainNav .navbar-collapse {
-    background-color: black;
+    background-color: var(--color-black);
 }
 
 #mainNav .navbar-nav {
@@ -132,232 +229,220 @@ img::-moz-selection{
     padding: 0;
 }
 
+/* The menu button is a quiet outlined button, so it is not the loudest thing on screen */
 #mainNav .navbar-toggler {
-    position: absolute;
-    font-size: 12px;
-    right: 10px !important;
-    top: 10px !important;
-    padding: 8px 12px;
+    font-family: var(--font-heading);
+    font-size: var(--fs-xs);
+    letter-spacing: var(--tracking-caps);
     text-transform: uppercase;
-    color: black;
-    border: none;
-    background-color: #ffd700;
-    font-family: 'Montserrat', 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+    padding: var(--space-2) var(--space-3);
+    color: var(--color-text);
+    background-color: transparent;
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-sm);
+    margin-left: auto;
+    transition: color var(--duration-base), border-color var(--duration-base);
+}
+
+#mainNav .navbar-toggler:hover {
+    color: var(--color-highlight);
+    border-color: var(--color-highlight);
+}
+
+#mainNav .navbar-toggler:focus-visible {
+    outline: 2px solid var(--color-highlight);
+    outline-offset: 2px;
+    box-shadow: none;
+}
+
+#mainNav .navbar-toggler .icon {
+    margin-left: var(--space-2);
+    font-size: var(--fs-lg);
+    vertical-align: -0.25em;
+}
+
+/* The open menu on phones and tablets: centred, full width, one ruled row per link */
+@media (max-width: 991.98px) {
+    #mainNav .navbar-collapse {
+        margin-top: var(--space-3);
+    }
+
+    #mainNav .navbar-nav {
+        text-align: center;
+    }
+
+    #mainNav .navbar-nav .nav-item + .nav-item {
+        border-top: 1px solid var(--color-line);
+    }
 }
 
 /* Text color of the menu top right */
 #mainNav .navbar-nav .nav-item .nav-link {
-    font-size: 90%;
+    font-size: var(--fs-sm);
     font-weight: 400;
     padding: 0.75em 0;
     letter-spacing: 1px;
-    color: #cfcfcf;
-    background-color: black;
-    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: var(--color-text);
+    background-color: var(--color-black);
+    font-family: var(--font-heading);
 }
 
-#mainNav .navbar-nav .nav-item .nav-link.active,
 #mainNav .navbar-nav .nav-item .nav-link:hover,
 #mainNav .navbar-nav .nav-item .nav-link:focus-visible {
-    color: #ffd700;
-    background-color: black;
-    /* border-bottom: 1px solid #ffd700; */
+    color: var(--color-highlight);
+    background-color: var(--color-black);
 }
 
 #mainNav .navbar-nav .nav-item .nav-link:focus-visible {
-    outline: 2px solid #ffd700;
+    outline: 2px solid var(--color-highlight);
     outline-offset: 2px;
 }
 
-@media (max-width: 992px) {
-    #mainNav {
-        position: fixed;
-        width: 100%;
-    }    
-}
-
-/* @media (min-width: 992px) {
-    #mainNav {
-      padding-top: 0px;
-      padding-bottom:20px;
-      -webkit-transition: padding-top 0.3s, padding-bottom 0.3s;
-      -moz-transition: padding-top 0.3s, padding-bottom 0.3s;
-      transition: padding-top 0.3s, padding-bottom 0.3s;
-      background-color: transparent;
-    }
-
-    #mainNav .navbar-nav .nav-item .nav-link {
-      padding: 1.1em 1em !important;
-    }
-
-    #mainNav.navbar-shrink {
-      padding-top: 0;
-      padding-bottom: 0;
-      background-color: white;
-    }
-  
-    #mainNav.navbar-shrink .navbar-brand {
-      font-size: 1.25em;
-      padding: 12px 0;
-    }
-} */
-
 .master-header {
     text-align: center;
-    /* color: black; */
     position: relative;
     overflow: hidden;
-    min-height: 800px;
     box-sizing: border-box;
-    margin-bottom: 0;
-    margin: 0 auto;
-    /* background: linear-gradient(to bottom, #0a0a0a, #1a1a2e); */
-    /* outline: 1px solid red; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;     /* the hero is the whole first screen; everything else starts below the fold */
+    min-height: 100svh;
+    padding: var(--space-8) var(--gutter) var(--space-7);
 }
 
 .master-header::before{
     content: '';
     position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: radial-gradient(
         circle at center top,
-        rgba(255, 255, 255, 0.25) 0%,
-        rgba(255, 255, 255, 0) 70%
+        var(--hero-glow) 0%,
+        var(--hero-glow-edge) 70%
     );
     z-index: 0;
     pointer-events: none;
 }
 
-header.master-header {
-    padding-top: 150px;
-    padding-bottom: 150px;
-}
-
-@media (min-width: 768px) {
-    header.master-header {
-        /* padding-top: 100px; */
-        padding-bottom: 200px;
-    }
-}
-
 #particleCanvas {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw !important;  
-    height: 100vh !important;
-    z-index: -1; /* Ensure the particles stay behind the content */
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: var(--z-canvas); /* Ensure the particles stay behind the content */
     pointer-events: none;
 }
 
 .hero-name {
-    font-family: inherit;
-    font-weight: inherit;
-    font-size: 35px;
-    line-height: 1.75;
-    color: inherit;
-    margin: 0 0 1rem;
-    padding-left: 30px;
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: var(--fs-2xl);
+    line-height: var(--lh-heading);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--color-text-strong);
+    margin: 0 0 var(--space-3);
 }
 
 .skip-link:focus {
     position: fixed;
     top: 10px;
     left: 10px;
-    z-index: 1100;
-    padding: 8px 16px;
-    background-color: #ffd700;
-    color: #0a0a0a;
-    font-family: 'Montserrat', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    z-index: var(--z-skip);
+    padding: var(--space-2) var(--space-3);
+    background-color: var(--color-highlight);
+    color: var(--color-on-accent);
+    font-family: var(--font-heading);
     text-decoration: none;
 }
 
 .text-landing {
     position: relative;
-    z-index: 2;
-    padding: 20px;
+    z-index: var(--z-content);
     text-align: center;
-    margin: 20px auto;
-    max-width: 90%; /* Match previous responsive design */
-    color: #cfcfcf;
-    /* text-shadow: 0 0 12px rgba(0, 0, 0, 0.9); Enhanced for readability */
-    /* background: rgba(0, 0, 0, 0.1); Subtle background for integration */
-    border-radius: 4px; /* Softer edges */
-    display: flex; /* Enable flex for content centering */
+    max-width: 100%;
+    color: var(--color-text);
+    display: flex;
     flex-direction: column;
     align-items: center;
-    /* outline: 1px solid red; */
 }
 
-@media (min-width: 768px) {
-    .text-landing {
-        max-width: 60%;
-    }
+/* The role line under the name: gold, larger than before, so it no longer reads as the smallest thing on screen */
+.text-landing p {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: var(--fs-lg);
+    letter-spacing: var(--tracking-wide);
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: var(--space-5);
 }
 
-section#description {
-    margin: 0;
-    padding: 0;
-}
-
-.description-container {
-    /* background-color: #101518; */
-    /* background-color: #0b0e10; */
-    background: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 50vh;
-    height: 50px;
-    margin: 0;
-    padding: 20px;
-    position: relative;
-    box-sizing: border-box;
-    /* outline: 1px solid red; */
-}
-
-.description-content {
-    text-align: left;
-    margin: 20%;
+/* The intro photo: sized here, not inline */
+.intro-photo {
+    width: 250px;
+    height: auto;
+    margin-block: var(--space-4);
 }
 
 /* PORTFOLIO SECTION */
 
-.portfolio-container {
-    position: relative;
-    overflow: hidden;
-    margin: 20px;
-    /* background-color: #161c20; */
+/* Cards: one column up to 991px (capped so a card is not huge at tablet width), three across from there */
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    max-width: 560px;
+    margin-inline: auto;
 }
 
+@media (min-width: 992px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        max-width: none;
+    }
+}
+
+/* A framed card: the media on top, the project name always visible underneath */
 .portfolio-item {
     position: relative;
     display: block;
-    margin: 15px;
     cursor: pointer;
-    /* background-color: grey !important; */
-    background: none;
-    border-radius: 3%;
-    -webkit-transition: all ease 1s;
-    -moz-transition: all ease 1s;
-    transition: all ease 1s;
-    width: 420px;
-    height: 250px;
+    background: var(--color-black);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--duration-base) ease;
     overflow: hidden;
-    padding: 0px;
+    padding: 0;
 }
 
-.portfolio-item img,
+.portfolio-item:hover,
+.portfolio-item:focus-within {
+    border-color: var(--color-highlight);
+}
+
+.portfolio-media {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+}
+
+.portfolio-title {
+    display: block;
+    padding: var(--space-3);
+    font-family: var(--font-heading);
+    font-size: var(--fs-sm);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--color-text-strong);
+}
+
 .portfolio-item video {
-    display: block; 
-    width: 100%; 
-    height: 100%; 
-    object-fit:fill; 
-    /* object-fit:cover;  */
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .portfolio-hover {
@@ -366,16 +451,16 @@ section#description {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 1);
-    color: white;
+    background: var(--color-black);
+    color: var(--color-white);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity var(--duration-base) ease;
     text-align: center;
-    padding: 15px;
+    padding: var(--space-3);
 }
 
 .portfolio-item:hover .portfolio-hover,
@@ -397,41 +482,45 @@ section#description {
 }
 
 .portfolio-link:focus-visible {
-    outline: 2px solid #ffd700;
+    outline: 2px solid var(--color-highlight);
     outline-offset: -4px;
 }
 
-.gif-container img,
-.gif-container video {
+/* The hover and focus overlay: the project's description over its media (the name is already shown below) */
+.portfolio-media {
+    display: block;
+}
+
+.explanation-portfolio {
+    display: block;
+    font-size: var(--fs-sm);
+    line-height: 1.5;
+    text-align: center;
+}
+
+.contact-lead {
+    font-style: italic;
+}
+
+/* The video frame inside each project modal */
+.media-frame video {
     width: 100%;  /* Full width inside modal */
     max-width: 800px; /* Adjust max size */
     height: auto; /* Maintain aspect ratio */
-    display: block; 
-    margin: auto; /* Center the GIF */
-    border-radius: 10px; /* Optional: rounded edges */
-}
-
-
-/* TESTIMONIALS SECTION */
-/* section#testimonial {
-    background-color: #0b0e10;
-} */
-
-/* CONTACT SECTION */
-
-section#contact {
-    /* background-color: #0b0e10; */
+    display: block;
+    margin: auto; /* Center the video */
+    border-radius: var(--radius-lg);
 }
 
 /* MODAL SECTION */
 .modal-content {
-    border-radius: 10px;
-    background-color: #161c20;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-surface);
 }
 
 .modal-header {
-    background-color: #161c20;
-    color: #fff;
+    background-color: var(--color-surface);
+    color: var(--color-white);
 }
 
 .modal-title {
@@ -441,26 +530,40 @@ section#contact {
 
 /* SOCIAL BUTTONS */
 
+ul.social-buttons .list-inline-item:not(:last-child) {
+    margin-right: var(--space-3);
+}
 
+/* Outlined circles, so the three icons no longer outweigh the name; gold on hover and focus */
 ul.social-buttons li a {
-    font-size: 23px;
-    line-height: 40px;
-    display: block;
-    width: 40px;
-    height: 40px;
-    -webkit-transition: all 0.3s;
-    -moz-transition: all 0.3s;
-    transition: all 0.3s;
-    color: #161c20;
-    border-radius: 100%;
-    background-color: #cfcfcf;
+    font-size: var(--fs-lg);
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    transition: color var(--duration-base), border-color var(--duration-base);
+    color: var(--color-text);
+    border: 1px solid var(--color-line);
+    border-radius: var(--radius-round);
+    background-color: transparent;
 }
 
 ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons li a:hover {
-    background-color: #ffd700;
+    color: var(--color-highlight);
+    border-color: var(--color-highlight);
 }
 
 ul.social-buttons li a:focus-visible {
-    outline: 2px solid #ffd700;
+    outline: 2px solid var(--color-highlight);
     outline-offset: 3px;
-} 
+}
+
+/* Transitions follow the visitor's OS motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .portfolio-item,
+    .portfolio-hover,
+    ul.social-buttons li a,
+    #mainNav .navbar-toggler {
+        transition: none;
+    }
+}
