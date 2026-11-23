@@ -3,16 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stock Market Dashboard</title>
-    <style>
-        body { margin: 0; padding: 0; text-align: center; }
-        iframe { width: 100vw; height: 100vh; border: none; }
-    </style>
+    <title>Stock Analysis Dashboard | Sai Pratik Pendli</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="img/favicon.svg" type="image/svg+xml" sizes="any">
+    <link rel="icon" href="img/favicon-32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+
+    <!-- Same fonts and design tokens as the main site -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&amp;family=Roboto+Slab:wght@400;700&amp;display=swap">
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
-    <iframe title="Stock Market Dashboard" 
-            src="https://app.powerbi.com/view?r=eyJrIjoiMDVlM2U3N2MtY2M2My00MjkxLTljZTQtYzMxOGQzOGY0NGVhIiwidCI6IjRkNDhhZWFjLTUwNGMtNDU5Yi05OGVkLWE0MDFiMzRmZjliOCJ9"
-            allowFullScreen="true">
-    </iframe>
+<body class="dash-page">
+    <header class="dash-bar">
+        <a class="dash-back" href="index.html#portfolio" aria-label="Back to portfolio">
+            <svg class="icon" aria-hidden="true" focusable="false" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" fill="currentColor"/></svg>
+            <span>Back<span class="dash-back-more"> to portfolio</span></span>
+        </a>
+        <h1 class="dash-title">Stock Analysis Dashboard</h1>
+    </header>
+
+    <main class="dash-frame">
+        <div class="dash-loading" aria-hidden="true"></div>
+        <iframe title="Stock Analysis Dashboard (Power BI)"
+                src="https://app.powerbi.com/view?r=eyJrIjoiMDVlM2U3N2MtY2M2My00MjkxLTljZTQtYzMxOGQzOGY0NGVhIiwidCI6IjRkNDhhZWFjLTUwNGMtNDU5Yi05OGVkLWE0MDFiMzRmZjliOCJ9"
+                allowfullscreen>
+        </iframe>
+    </main>
 </body>
 </html>

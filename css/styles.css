@@ -4,9 +4,11 @@
 :root {
     /* Colour */
     --color-bg: #0a0a0a;
-    --color-surface: #161c20;      /* modal surface */
+    --color-surface: #1d1d1d;      /* modal surface: neutral like the page, a step lighter so the panel reads as glass (B104) */
     --color-text: #cfcfcf;
     --color-text-strong: #ececec;  /* the hero name */
+    --name-top: #ffffff;           /* the hero name is lit from above: brightest at the top, softer at the baseline (B107) */
+    --name-bottom: #c9c9c9;
     --color-muted: #b0b6ba;        /* secondary text; 4.5:1 or better even under the top glow */
     --color-line: rgba(207, 207, 207, 0.38);  /* outline of the icon buttons */
     --color-highlight: #ffd700;    /* gold: the one accent (role line, heading rules, buttons, hover, focus) and the particles */
@@ -53,7 +55,26 @@
     --z-content: 2;
     --z-nav: 1000;
     --z-skip: 1100;
+    --duration-fast: 0.15s;
     --duration-base: 0.3s;
+    --duration-slow: 0.6s;
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+    /* Glass and light from the top (UI polish list, B102): one recipe shared by the nav, modals and card overlay */
+    --glass-bg: rgba(10, 10, 10, 0.70);        /* lowest tint that keeps 4.5:1 text even over pure white (blends to about #535353) */
+    --glass-blur: blur(14px) saturate(140%);
+    --glass-bg-surface: rgba(44, 44, 44, 0.60); /* the modal panel: neutral grey glass, lighter than the page so the blur shows; 4.5:1 text even over white */
+    --glass-bg-overlay: rgba(10, 10, 10, 0.62); /* the card description pane over the playing video; white text stays above 4.5:1 even over a white frame */
+    --glass-blur-overlay: blur(8px) saturate(120%);
+    --glass-bg-light: rgba(10, 10, 10, 0.25);   /* the nav at the top of the page, before it deepens on scroll */
+    --glass-blur-light: blur(6px);
+    --rim: rgba(255, 255, 255, 0.10);          /* the top-edge highlight, where the light lands */
+    --hairline: rgba(255, 255, 255, 0.08);     /* quiet dividers and glass edges */
+    --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.45);
+    --shadow-lift: 0 14px 36px rgba(0, 0, 0, 0.55);
+    --shadow-glow: 0 12px 28px color-mix(in srgb, var(--color-highlight) 16%, transparent);   /* a faint gold glow under a lifted card (B108) */
+    --lift: -3px;
+    --zoom: 1.03;
 
     /* Bootstrap 5.3 colours modal text from --bs-body-color (alpha1 left it unset, so modals inherited the
        site's light text); without this the modals show dark text on the dark modal background */
@@ -90,10 +111,27 @@ body {
     min-height: 100vh;
     background-color: var(--color-bg);
     color: var(--color-text);
+    -webkit-font-smoothing: antialiased;   /* light text on dark reads crisper and a touch lighter on macOS and iOS */
+    -moz-osx-font-smoothing: grayscale;
 }
 
 p {
     line-height: var(--lh-body);
+}
+
+/* Typographic finish (B119): headings and short centred lines wrap evenly, paragraphs avoid a lone last word. Browsers
+   without text-wrap simply ignore it. */
+h1, h2, h3, h4, h5, h6,
+.section-subheading,
+.modal-title,
+.portfolio-title,
+.explanation-portfolio {
+    text-wrap: balance;
+}
+
+p,
+li {
+    text-wrap: pretty;
 }
 
 a {
@@ -137,10 +175,16 @@ section h2.section-heading {
 section h2.section-heading::after {
     content: '';
     display: block;
-    width: 48px;
+    width: 72px;
     height: 2px;
     margin: var(--space-3) auto 0;
-    background-color: var(--color-accent);
+    background: linear-gradient(90deg, transparent, var(--color-accent) 28%, var(--color-accent) 72%, transparent);
+}
+
+/* A hairline between sections that fades out at both ends (B107) */
+section + section {
+    border-top: 1px solid transparent;
+    border-image: linear-gradient(90deg, transparent, var(--hairline) 25%, var(--hairline) 75%, transparent) 1;
 }
 
 section h3.section-subheading {
@@ -168,33 +212,50 @@ section h3.section-subheading {
     font-weight: 400;   /* 500 is not loaded; the browser already rendered 400 */
 }
 
-.btn-primary {
-    background-color: transparent;
-    border-color: var(--color-accent);
-    color: var(--color-accent);
-    border-width: medium;
+.btn {
+    transition: color var(--duration-base), background-color var(--duration-base), border-color var(--duration-base),
+        box-shadow var(--duration-base) var(--ease-out), transform var(--duration-fast) var(--ease-out);
 }
 
-.btn.btn-primary:active, .btn.btn-primary:focus, .btn.btn-primary:hover {
+/* The main action (View) is solid gold; the quiet one (Close) is a ghost that only turns gold on hover (B115) */
+.btn-primary {
     background-color: var(--color-accent);
     border-color: var(--color-accent);
     color: var(--color-on-accent);
+    border-width: medium;
+}
+
+.btn.btn-primary:hover {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-on-accent);
+    box-shadow: var(--shadow-glow);
 }
 
 .btn.btn-primary:active, .btn.btn-primary:focus {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-on-accent);
     box-shadow: 0 0 0 0.2rem var(--focus-glow);
 }
 
 .btn-secondary {
     background-color: transparent;
+    border-color: var(--color-line);
+    color: var(--color-text);
+}
+
+.btn.btn-secondary:active, .btn.btn-secondary:focus, .btn.btn-secondary:hover {
+    background-color: transparent;
     border-color: var(--color-accent);
     color: var(--color-accent);
 }
 
-.btn.btn-secondary:active, .btn.btn-secondary:focus, .btn.btn-secondary:hover {
-    background-color: var(--color-accent);
-    border-color: var(--color-accent);
-    color: var(--color-on-accent);
+/* A 1px press on every button, for visitors who have not asked for less movement */
+@media (prefers-reduced-motion: no-preference) {
+    .btn:active {
+        transform: translateY(1px);
+    }
 }
 
 /* A visible keyboard focus ring on every button and button-link, in the modals too */
@@ -212,13 +273,43 @@ img::selection {
     background: transparent;
 }
 
+/* Frosted glass: translucent near-black over a blur, a hairline edge below and a faint rim of light on top (B103) */
 #mainNav {
-    background-color: var(--color-black);
+    background-color: var(--glass-bg);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+    border-bottom: 1px solid var(--hairline);
+    box-shadow: inset 0 1px 0 var(--rim), var(--shadow-soft);
+    transition: background-color var(--duration-base) var(--ease-out), border-color var(--duration-base) var(--ease-out),
+        box-shadow var(--duration-base) var(--ease-out), backdrop-filter var(--duration-base) var(--ease-out),
+        -webkit-backdrop-filter var(--duration-base) var(--ease-out);
     z-index: var(--z-nav);
 }
 
+/* At the very top the glass is light (a faint tint, a soft blur, a quiet edge) and deepens as the page scrolls (js/nav.js) */
+#mainNav.is-top {
+    background-color: var(--glass-bg-light);
+    -webkit-backdrop-filter: var(--glass-blur-light);
+    backdrop-filter: var(--glass-blur-light);
+    border-bottom-color: transparent;
+    box-shadow: inset 0 1px 0 var(--rim);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    #mainNav {
+        background-color: var(--color-black);
+    }
+}
+
 #mainNav .navbar-collapse {
-    background-color: var(--color-black);
+    background-color: transparent;
+}
+
+/* The nav sits in the same column as the page content (the 1120px container), so its first and last links line up with
+   the cards below instead of spreading to the screen edges (B101) */
+#mainNav > .container {
+    max-width: calc(var(--container-max) + 2 * var(--gutter));
+    padding-inline: var(--gutter);
 }
 
 #mainNav .navbar-nav {
@@ -255,24 +346,33 @@ img::selection {
     box-shadow: none;
 }
 
+/* The Menu icon becomes a cross while the menu is open (B113) */
+#mainNav .navbar-toggler .icon-close,
+#mainNav .navbar-toggler[aria-expanded="true"] .icon-open {
+    display: none;
+}
+
+#mainNav .navbar-toggler[aria-expanded="true"] .icon-close {
+    display: inline-block;
+}
+
 #mainNav .navbar-toggler .icon {
     margin-left: var(--space-2);
     font-size: var(--fs-lg);
     vertical-align: -0.25em;
 }
 
-/* The open menu on phones and tablets: centred, full width, one ruled row per link */
+/* The open menu on phones and tablets: centred, full width, no ruled rows (the glass is the panel) */
 @media (max-width: 991.98px) {
     #mainNav .navbar-collapse {
         margin-top: var(--space-3);
+        max-height: calc(100vh - var(--nav-h) - var(--space-3));   /* a short or zoomed screen scrolls the open menu (B127) */
+        max-height: calc(100dvh - var(--nav-h) - var(--space-3));
+        overflow-y: auto;
     }
 
     #mainNav .navbar-nav {
         text-align: center;
-    }
-
-    #mainNav .navbar-nav .nav-item + .nav-item {
-        border-top: 1px solid var(--color-line);
     }
 }
 
@@ -283,14 +383,40 @@ img::selection {
     padding: 0.75em 0;
     letter-spacing: 1px;
     color: var(--color-text);
-    background-color: var(--color-black);
+    background-color: transparent;
     font-family: var(--font-heading);
 }
 
 #mainNav .navbar-nav .nav-item .nav-link:hover,
 #mainNav .navbar-nav .nav-item .nav-link:focus-visible {
     color: var(--color-highlight);
-    background-color: var(--color-black);
+    background-color: transparent;
+}
+
+/* The section in view (js/nav.js): gold, with a small gold bar under the label (B109) */
+#mainNav .navbar-nav .nav-item .nav-link {
+    position: relative;
+}
+
+#mainNav .navbar-nav .nav-item .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0.35em;
+    width: 24px;
+    height: 2px;
+    background: var(--color-highlight);
+    border-radius: var(--radius-sm);
+    transform: translateX(-50%) scaleX(0);
+    transition: transform var(--duration-base) var(--ease-out);
+}
+
+#mainNav .navbar-nav .nav-item .nav-link.active {
+    color: var(--color-highlight);
+}
+
+#mainNav .navbar-nav .nav-item .nav-link.active::after {
+    transform: translateX(-50%) scaleX(1);
 }
 
 #mainNav .navbar-nav .nav-item .nav-link:focus-visible {
@@ -315,9 +441,15 @@ img::selection {
     content: '';
     position: fixed;
     inset: 0;
+    /* B106: same circle and radius as before, but it fades out a little faster along a smooth curve (no visible edge),
+       so the dark sky and the gold particles read better */
     background: radial-gradient(
         circle at center top,
         var(--hero-glow) 0%,
+        color-mix(in srgb, var(--hero-glow) 74%, transparent) 12%,
+        color-mix(in srgb, var(--hero-glow) 48%, transparent) 25%,
+        color-mix(in srgb, var(--hero-glow) 26%, transparent) 40%,
+        color-mix(in srgb, var(--hero-glow) 11%, transparent) 55%,
         var(--hero-glow-edge) 70%
     );
     z-index: 0;
@@ -330,7 +462,58 @@ img::selection {
     width: 100%;
     height: 100%;
     z-index: var(--z-canvas); /* Ensure the particles stay behind the content */
+    opacity: var(--particle-opacity, 1);   /* js/nav.js eases it down as the hero scrolls away (B111) */
     pointer-events: none;
+}
+
+/* A quiet cue at the bottom of the full-screen hero that there is more below; it fades away after the first scroll (B110) */
+.scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: var(--space-4);
+    z-index: var(--z-content);
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    margin-left: -22px;
+    font-size: var(--fs-lg);
+    color: var(--color-muted);
+    opacity: 1;
+    transition: opacity var(--duration-slow) var(--ease-out), color var(--duration-base);
+}
+
+.scroll-cue:hover,
+.scroll-cue:focus-visible {
+    color: var(--color-highlight);
+}
+
+.scroll-cue:focus-visible {
+    outline: 2px solid var(--color-highlight);
+    outline-offset: 2px;
+}
+
+html.is-scrolled .scroll-cue {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;   /* once faded, it also leaves the tab order and the accessibility tree (B122) */
+    transition: opacity var(--duration-slow) var(--ease-out), visibility 0s linear var(--duration-slow), color var(--duration-base);
+}
+
+/* A section that takes focus after a menu link is tapped (js/nav.js, B123) shows no focus ring of its own */
+[tabindex="-1"]:focus {
+    outline: none;
+}
+
+@keyframes scroll-cue-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html[data-motion="running"] .scroll-cue .icon {
+        animation: scroll-cue-bob 2.4s ease-in-out infinite;
+    }
 }
 
 .hero-name {
@@ -340,8 +523,26 @@ img::selection {
     line-height: var(--lh-heading);
     letter-spacing: var(--tracking-caps);
     text-transform: uppercase;
-    color: var(--color-text-strong);
+    color: var(--color-text-strong);   /* fallback where the gradient text below is not supported */
     margin: 0 0 var(--space-3);
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .hero-name {
+        background: linear-gradient(to bottom, var(--name-top), var(--name-bottom));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+    }
+}
+
+@media (forced-colors: active) {
+    .hero-name {
+        background: none;
+        -webkit-text-fill-color: currentColor;
+        color: CanvasText;
+    }
 }
 
 .skip-link:focus {
@@ -411,7 +612,8 @@ img::selection {
     background: var(--color-black);
     border: 1px solid var(--color-line);
     border-radius: var(--radius-lg);
-    transition: border-color var(--duration-base) ease;
+    transition: border-color var(--duration-base) ease, box-shadow var(--duration-base) var(--ease-out),
+        transform var(--duration-base) var(--ease-out);
     overflow: hidden;
     padding: 0;
 }
@@ -428,7 +630,10 @@ img::selection {
 }
 
 .portfolio-title {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
     padding: var(--space-3);
     font-family: var(--font-heading);
     font-size: var(--fs-sm);
@@ -438,11 +643,63 @@ img::selection {
     color: var(--color-text-strong);
 }
 
+/* On narrow phones the longest title plus the arrow would wrap and make that card taller, so the title steps down one
+   size on the type scale (B117) */
+@media (max-width: 420px) {
+    .portfolio-title {
+        font-size: var(--fs-xs);
+    }
+}
+
+/* A small arrow in the title row says the card opens, which touch screens otherwise never show (B117) */
+.portfolio-title .icon-opens {
+    flex: none;
+    font-size: var(--fs-sm);
+    color: var(--color-muted);
+    transition: transform var(--duration-base) var(--ease-out), color var(--duration-base);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .portfolio-item:hover .icon-opens {
+        transform: translate(2px, -2px);
+    }
+}
+
+.portfolio-item:hover .icon-opens,
+.portfolio-item:focus-within .icon-opens {
+    color: var(--color-highlight);
+}
+
 .portfolio-item video {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    transition: transform var(--duration-slow) var(--ease-out);
+}
+
+/* The card answers the pointer or the keyboard: it lifts, a faint gold glow shows underneath and the video eases in a
+   little. Hover only on devices that can hover; movement only when the visitor has not asked for less (B108) */
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .portfolio-item:hover {
+        transform: translateY(var(--lift));
+        box-shadow: var(--shadow-glow);
+    }
+
+    .portfolio-item:hover video {
+        transform: scale(var(--zoom));
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .portfolio-item:has(.portfolio-link:focus-visible) {
+        transform: translateY(var(--lift));
+        box-shadow: var(--shadow-glow);
+    }
+
+    .portfolio-item:has(.portfolio-link:focus-visible) video {
+        transform: scale(var(--zoom));
+    }
 }
 
 .portfolio-hover {
@@ -451,21 +708,30 @@ img::selection {
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--color-black);
+    z-index: 1;   /* above the video, which gets its own layer when it zooms (B108) */
+    background: var(--glass-bg-overlay);
+    -webkit-backdrop-filter: var(--glass-blur-overlay);
+    backdrop-filter: var(--glass-blur-overlay);
     color: var(--color-white);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     opacity: 0;
-    transition: opacity var(--duration-base) ease;
+    transition: opacity var(--duration-base) var(--ease-out);
     text-align: center;
     padding: var(--space-3);
 }
 
 .portfolio-item:hover .portfolio-hover,
 .portfolio-link:focus-visible .portfolio-hover {
-    opacity: 0.8;
+    opacity: 1;
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .portfolio-hover {
+        background: var(--color-black);
+    }
 }
 
 .portfolio-link {
@@ -512,14 +778,42 @@ img::selection {
     border-radius: var(--radius-lg);
 }
 
-/* MODAL SECTION */
+/* MODAL SECTION: a frosted panel over a blurred, dimmed page (B104) */
+.modal-backdrop {
+    -webkit-backdrop-filter: blur(6px);
+    backdrop-filter: blur(6px);
+}
+
 .modal-content {
+    --bs-modal-header-border-color: var(--hairline);
+    --bs-modal-footer-border-color: var(--hairline);
     border-radius: var(--radius-lg);
-    background-color: var(--color-surface);
+    background-color: var(--glass-bg-surface);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--hairline);
+    box-shadow: inset 0 1px 0 var(--rim), var(--shadow-lift);
+}
+
+/* A long modal scrolls inside, so the close button and View stay reachable. Bootstrap makes a scrollable dialog the full
+   screen height even when short; here it only grows as tall as it needs and then scrolls (B114) */
+.modal-dialog-scrollable {
+    height: auto;
+}
+
+.modal-dialog-scrollable .modal-content {
+    max-height: calc(100vh - var(--bs-modal-margin) * 2);
+    max-height: calc(100dvh - var(--bs-modal-margin) * 2);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .modal-content {
+        background-color: var(--color-surface);
+    }
 }
 
 .modal-header {
-    background-color: var(--color-surface);
+    background-color: transparent;
     color: var(--color-white);
 }
 
@@ -541,7 +835,7 @@ ul.social-buttons li a {
     place-items: center;
     width: 44px;
     height: 44px;
-    transition: color var(--duration-base), border-color var(--duration-base);
+    transition: color var(--duration-base), border-color var(--duration-base), transform var(--duration-fast) var(--ease-out);
     color: var(--color-text);
     border: 1px solid var(--color-line);
     border-radius: var(--radius-round);
@@ -558,12 +852,186 @@ ul.social-buttons li a:focus-visible {
     outline-offset: 3px;
 }
 
+/* TOUCH FEEDBACK (B116): phones never see hover, so a press answers the finger: cards and icon circles sink a little, the
+   nav links and the Menu button dim, and the browser's grey tap flash is replaced by these. */
+html {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.portfolio-item:active {
+    border-color: var(--color-highlight);
+}
+
+#mainNav .navbar-nav .nav-item .nav-link:active,
+#mainNav .navbar-toggler:active,
+.scroll-cue:active {
+    color: var(--color-highlight);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .portfolio-item:active {
+        transform: scale(0.985);
+    }
+
+    ul.social-buttons li a:active {
+        transform: scale(0.92);
+    }
+}
+
 /* Transitions follow the visitor's OS motion preference */
 @media (prefers-reduced-motion: reduce) {
     .portfolio-item,
+    .portfolio-item video,
     .portfolio-hover,
     ul.social-buttons li a,
+    #mainNav,
+    .scroll-cue,
+    .btn,
+    .portfolio-title .icon-opens,
+    .dash-back,
+    .dash-back .icon,
+    #mainNav .navbar-nav .nav-item .nav-link::after,
     #mainNav .navbar-toggler {
         transition: none;
     }
+}
+
+/* DASHBOARD PAGE (stock_analysis_dashboard.html, B118): the Power BI report in the site's look, with a way back */
+.dash-page {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100dvh;
+    background-image: radial-gradient(circle at center top, var(--hero-glow) 0%, var(--hero-glow-edge) 60%);
+    background-repeat: no-repeat;
+}
+
+.dash-bar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: var(--space-3);
+    flex: none;
+    min-height: var(--nav-h);
+    padding: 0 var(--gutter);
+    background-color: var(--glass-bg);
+    -webkit-backdrop-filter: var(--glass-blur);
+    backdrop-filter: var(--glass-blur);
+    border-bottom: 1px solid var(--hairline);
+    box-shadow: inset 0 1px 0 var(--rim), var(--shadow-soft);
+}
+
+.dash-back {
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 44px;
+    font-family: var(--font-heading);
+    font-size: var(--fs-sm);
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-text);
+    transition: color var(--duration-base);
+}
+
+.dash-back .icon {
+    width: 1em;
+    height: 1em;
+    flex: none;
+    transition: transform var(--duration-base) var(--ease-out);
+}
+
+.dash-back:hover,
+.dash-back:focus-visible,
+.dash-back:active {
+    color: var(--color-highlight);
+}
+
+.dash-back:focus-visible {
+    outline: 2px solid var(--color-highlight);
+    outline-offset: 2px;
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .dash-back:hover .icon {
+        transform: translateX(-3px);
+    }
+}
+
+.dash-title {
+    grid-column: 2;
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: var(--fs-sm);
+    font-weight: 400;
+    letter-spacing: var(--tracking-caps);
+    text-transform: uppercase;
+    color: var(--color-text-strong);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@media (max-width: 575.98px) {
+    .dash-back-more {
+        display: none;
+    }
+
+    .dash-bar {
+        grid-template-columns: auto 1fr;
+    }
+
+    .dash-title {
+        grid-column: 2;
+        text-align: right;
+        font-size: var(--fs-xs);
+        white-space: normal;   /* the page's only <h1> wraps at narrow widths and large text instead of truncating (B126) */
+        overflow: visible;
+        text-overflow: clip;
+    }
+
+    .dash-bar {
+        padding-block: var(--space-2);
+    }
+}
+
+/* The report sits in a hairline frame; a soft shimmer shows until it has loaded */
+.dash-frame {
+    position: relative;
+    flex: 1;
+    min-height: 320px;   /* a very short or zoomed screen scrolls the page instead of squashing the report (B127) */
+    margin: var(--space-3) var(--gutter) var(--gutter);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background-color: var(--color-black);
+    box-shadow: var(--shadow-soft);
+}
+
+.dash-frame iframe {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+.dash-loading {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 30%, var(--hairline) 50%, transparent 70%);
+    background-size: 220% 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .dash-loading {
+        animation: dash-shimmer 1.8s ease-in-out infinite;
+    }
+}
+
+@keyframes dash-shimmer {
+    from { background-position: 120% 0; }
+    to { background-position: -120% 0; }
 }
